@@ -264,9 +264,33 @@ section{position:relative}
 .rl.t{transform:translate(-50%,-100%);margin-top:-12px;text-align:center}
 .rl.b{transform:translate(-50%,0);margin-top:12px;text-align:center}
 .rl.t,.rl.b{max-width:300px}
+/* r2c item 1: hover ligado. Sector, numero, fio, ponto e rotulo estao em quatro
+   arvores diferentes (tres <g> do SVG + o <ul> de rotulos), por isso nao ha selector
+   CSS que os ligue: o par e feito por indice no JS, que poe .on nos cinco de uma vez.
+   O sector sob o cursor sobe, os outros recuam .985 e perdem saturacao. */
+.roda-segs .rs,.roda-nums .rn,.roda-fios .rf,.roda-fios .rp{
+  transition:transform .34s cubic-bezier(.3,1.2,.5,1),filter .34s ease,opacity .34s ease,stroke .34s ease}
+.roda-nums .rn{transform-box:view-box;transform-origin:530px 353px}
+.roda-fios .rf{transform-box:view-box;transform-origin:530px 353px}
+.roda-fios .rp{transform-box:fill-box;transform-origin:50% 50%}
+.rl-t{transition:opacity .3s ease,color .3s ease}
 @media(hover:hover){
-  .roda:hover .roda-segs .rs{filter:drop-shadow(0 8px 16px rgba(169,94,61,.1)) saturate(.86)}
-  .rl:hover~*{}
+  .roda.roda-on .roda-segs .rs{opacity:.52;transform:scale(.985);
+    filter:drop-shadow(0 6px 12px rgba(169,94,61,.07)) saturate(.6)}
+  .roda.roda-on .roda-nums .rn{opacity:.42}
+  .roda.roda-on .roda-fios .rf,.roda.roda-on .roda-fios .rp{opacity:.3}
+  .roda.roda-on .rl .rl-t{opacity:.44}
+  .roda.roda-on .roda-segs .rs.on{opacity:1;transform:scale(1.045);
+    filter:drop-shadow(0 16px 28px rgba(169,94,61,.3)) saturate(1.08)}
+  .roda.roda-on .roda-nums .rn.on{opacity:1;transform:scale(1.045)}
+  .roda.roda-on .roda-fios .rf.on{opacity:1;stroke:var(--coral);stroke-width:1.9}
+  .roda.roda-on .roda-fios .rp.on{opacity:1;transform:scale(1.5)}
+  .roda.roda-on .rl.on .rl-t{opacity:1;color:var(--coral-esc)}
+}
+@media(prefers-reduced-motion:reduce){
+  .roda-segs .rs,.roda-nums .rn,.roda-fios .rf,.roda-fios .rp{transition:opacity .2s linear}
+  .roda.roda-on .roda-segs .rs,.roda.roda-on .roda-segs .rs.on,
+  .roda.roda-on .roda-nums .rn.on,.roda.roda-on .roda-fios .rp.on{transform:none}
 }
 /* SEC 5 — BONUS (r2 item 6: 4 pilares com selo central) */
 .sec-bonus{background:linear-gradient(160deg,var(--areia) 0%,var(--areia-fim) 100%);overflow:hidden}

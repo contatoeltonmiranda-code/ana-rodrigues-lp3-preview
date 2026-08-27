@@ -422,6 +422,42 @@
   Array.prototype.forEach.call(targets,function(el){io.observe(el)});
 })();
 
+/* ===== r2c item 1: hover ligado da roda (sector + numero + fio + ponto + rotulo) ===== */
+(function(){
+  var roda=document.querySelector('.roda');
+  if(!roda)return;
+  if(!(window.matchMedia&&window.matchMedia('(hover:hover)').matches))return;
+  var svg=roda.querySelector('.roda-svg');
+  var segs=roda.querySelectorAll('.roda-segs .rs'),
+      nums=roda.querySelectorAll('.roda-nums .rn'),
+      fios=roda.querySelectorAll('.roda-fios .rf'),
+      pts =roda.querySelectorAll('.roda-fios .rp'),
+      labs=roda.querySelectorAll('.roda-labels .rl');
+  var n=Math.min(segs.length,nums.length,labs.length);
+  if(!n)return;
+  var grupos=[],i;
+  for(i=0;i<n;i++)grupos.push([segs[i],nums[i],fios[i],pts[i],labs[i]].filter(Boolean));
+  function desliga(){
+    roda.classList.remove('roda-on');
+    for(var k=0;k<grupos.length;k++)
+      for(var j=0;j<grupos[k].length;j++)grupos[k][j].classList.remove('on');
+  }
+  function liga(idx){
+    /* abaixo de 1100px o SVG esta escondido e os rotulos viram cartoes: sem realce */
+    if(!svg||getComputedStyle(svg).display==='none'){desliga();return;}
+    desliga();
+    roda.classList.add('roda-on');
+    for(var j=0;j<grupos[idx].length;j++)grupos[idx][j].classList.add('on');
+  }
+  for(i=0;i<n;i++)(function(idx){
+    [segs[idx],labs[idx]].forEach(function(el){
+      if(!el)return;
+      el.addEventListener('pointerenter',function(){liga(idx)});
+    });
+  })(i);
+  roda.addEventListener('pointerleave',desliga);
+})();
+
 /* ===== r2 item 10: linha ascendente da Formacao ===== */
 (function(){
   var esc=document.querySelector('.escada');
