@@ -95,16 +95,33 @@ section{position:relative}
   border-radius:50% 50% 0 0/100% 100% 0 0}
 .curv-up.to-areia{--curv-to:var(--areia)}
 .curv-up.to-sobre{--curv-to:linear-gradient(120deg,#EBEAE7 0%,#EFEBEF 46%,#F1ECF3 100%)}
-/* SEC 2 — PARA TI SE */
+/* SEC 2 — PARA TI SE (r2 item 3: 2 colunas, arte a esquerda) */
 .sec-duv{background:var(--areia);overflow:hidden}
-.duv-intro{text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(17px,2vw,21px);color:var(--sage-esc);margin:34px auto 0}
-.q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1000px;margin:26px auto 0}
-.q-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--grad-card);border:1px solid var(--linha);border-radius:18px;padding:26px 22px 24px;box-shadow:var(--sh-soft);font-size:14.6px;color:var(--texto);line-height:1.5;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
-.q-card::before{content:"?";width:28px;height:28px;flex:0 0 auto;margin-bottom:12px;border-radius:50%;background:var(--grad-coral);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(185,106,117,.32)}
-@media(hover:hover){.q-card:hover{transform:translateY(-4px);border-color:rgba(185,106,117,.55);box-shadow:var(--sh-mid)}}
-/* 5 cartoes: flex centrado para a ultima linha (2) nao ficar encostada a esquerda */
-.q-grid.q-5{display:flex;flex-wrap:wrap;justify-content:center}
-.q-grid.q-5 .q-card{flex:0 0 calc(33.333% - 11px)}
+.duv-split{display:grid;grid-template-columns:.82fr 1.18fr;gap:60px;align-items:center;margin-top:8px}
+.duv-body .eyebrow{margin-bottom:18px}
+.duv-body h2{font-size:clamp(27px,3.05vw,41px);margin-bottom:18px}
+.duv-intro{font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(17px,2vw,20px);color:var(--sage-esc);margin:0 0 22px}
+.duv-list{list-style:none;display:grid;gap:14px}
+.duv-list li{position:relative;display:flex;align-items:flex-start;gap:14px;background:var(--grad-card);border:1px solid var(--linha);border-radius:15px;padding:16px 20px;box-shadow:var(--sh-soft);font-size:14.8px;color:var(--texto);line-height:1.55;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.duv-list li::before{content:"?";flex:0 0 auto;width:27px;height:27px;margin-top:1px;border-radius:50%;background:var(--grad-coral);color:#fff;font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:14.5px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 10px rgba(185,106,117,.32)}
+@media(hover:hover){.duv-list li:hover{transform:translateX(5px);border-color:rgba(185,106,117,.55);box-shadow:var(--sh-mid)}}
+/* espaco reservado para a arte do Elton — forma organica, sem conteudo */
+.duv-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:520px}
+.da-shape{position:relative;width:100%;max-width:392px;aspect-ratio:392/486;
+  border-radius:62% 38% 44% 56%/42% 56% 44% 58%;
+  background:linear-gradient(152deg,#FBEEE4 0%,#F3CDB4 40%,#E7B7B7 74%,#F2DFAF 100%);
+  box-shadow:0 34px 74px rgba(169,94,61,.24),inset 0 0 70px rgba(255,255,255,.5);
+  animation:daMorph 16s ease-in-out infinite}
+.da-shape::before{content:"";position:absolute;inset:15px;border-radius:inherit;border:1px solid rgba(255,255,255,.62);pointer-events:none}
+.da-shape::after{content:"";position:absolute;inset:0;border-radius:inherit;pointer-events:none;
+  background:radial-gradient(circle at 32% 26%,rgba(255,255,255,.62) 0%,rgba(255,255,255,0) 54%)}
+.da-ring{position:absolute;inset:-26px;border-radius:inherit;border:1px solid rgba(229,137,96,.30);pointer-events:none;animation:daMorph 16s ease-in-out infinite}
+.da-ring.b{inset:-52px;border-color:rgba(229,137,96,.16)}
+.da-dot{position:absolute;border-radius:50%;background:var(--grad-sage);box-shadow:0 6px 16px rgba(169,94,61,.34)}
+.da-dot.d1{width:16px;height:16px;top:8%;right:2%}
+.da-dot.d2{width:10px;height:10px;bottom:12%;left:-2%;background:var(--grad-coral)}
+@keyframes daMorph{0%,100%{border-radius:62% 38% 44% 56%/42% 56% 44% 58%}50%{border-radius:41% 59% 60% 40%/58% 42% 58% 42%}}
+@media(prefers-reduced-motion:reduce){.da-shape,.da-ring{animation:none}}
 /* SEC 3 — TRANSFORMACAO */
 .sec-imag{background:var(--cream);overflow:hidden}
 .imag-lead{max-width:800px;margin:0 auto;text-align:center;font-size:16.2px;color:var(--texto);line-height:1.72}
@@ -285,8 +302,7 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
 @media(max-width:1080px){
   .hero .wrap{padding:0 32px}
   .hero-grid{grid-template-columns:minmax(0,52%) 1fr;gap:34px}
-  .q-grid{grid-template-columns:repeat(2,1fr);max-width:760px}
-  .q-grid.q-5 .q-card{flex:0 0 calc(50% - 8px)}
+  .duv-split{grid-template-columns:.88fr 1.12fr;gap:40px}
   .mod-split{grid-template-columns:.9fr 1.1fr;gap:38px}
   .bon-item{flex:0 0 calc(50% - 13px)}
 }
@@ -299,6 +315,10 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .mod-head{position:static;top:auto}
   .mod-head .lead{max-width:none}
   .bon-item{flex:0 0 calc(50% - 13px)}
+  .duv-split{grid-template-columns:1fr;gap:44px}
+  .duv-art{order:-1;min-height:0}
+  .da-shape{max-width:320px}
+  .duv-body{text-align:left}
   .price-wrap{flex-direction:column;align-items:stretch;max-width:520px}
   .price-side-shell{flex:auto;align-self:auto;margin-left:0;margin-top:-30px}
   .price-side{border-radius:0 0 22px 22px;padding:60px 30px 34px}
@@ -324,8 +344,9 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .sec h2{font-size:clamp(25px,7vw,34px)}
   .btn,.btn.lg{font-size:14px;padding:16px 22px;width:100%}
   .cta-row{margin-top:34px}
-  .q-grid{grid-template-columns:1fr;max-width:420px}
-  .q-grid.q-5 .q-card{flex:0 0 100%}
+  .da-shape{max-width:250px}
+  .duv-art{margin-bottom:6px}
+  .duv-list li{padding:14px 16px;gap:11px;font-size:14.2px}
   .imag-grid{max-width:420px;margin-left:auto;margin-right:auto;gap:22px}
   .imag-card{flex-direction:column;align-items:center;text-align:center}
   .imag-card .ii,.imag-card .ii img{width:112px;height:112px}
