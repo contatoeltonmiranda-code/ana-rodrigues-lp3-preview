@@ -209,15 +209,24 @@
   <div class="wrap">
     <div class="form-box sr-hidden">
       <h3><span class="fh"><svg viewBox="0 0 24 24"><path d="M12 3.5 21.5 8 12 12.5 2.5 8 12 3.5Z"/><path d="M6.5 10.2V15c0 1.6 2.5 3 5.5 3s5.5-1.4 5.5-3v-4.8"/><path d="M21.5 8v5"/></svg></span>Formação</h3>
-      <ul class="res-list">
-        <li>Nutricionista, membro efetivo da Ordem dos Nutricionistas (C.P. 2069N)</li>
-        <li>Pós-Graduação em Nutrição Pediátrica e Escolar</li>
-        <li>Formação avançada em Introdução Alimentar</li>
-        <li>Curso de Suporte Básico de Vida Pediátrico</li>
-        <li>Curso de Primeiros Socorros Pediátricos</li>
-        <li>Certificação de Profissionais de Saúde Neurocompatíveis&reg;</li>
-        <li>Certificação em Get Permission Approach&reg;</li>
-      </ul>
+      <div class="escada">
+        <svg class="esc-svg" aria-hidden="true" focusable="false">
+          <defs><linearGradient id="escG" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="0" y2="0">
+            <stop offset="0%" stop-color="#EDB393"/><stop offset="52%" stop-color="#E58960"/>
+            <stop offset="100%" stop-color="#B96A75"/></linearGradient></defs>
+          <path class="esc-linha" fill="none" stroke="url(#escG)"/>
+          <path class="esc-seta" fill="none" stroke="url(#escG)"/>
+        </svg>
+        <ol class="esc-lista">
+          <li class="esc-item sr-hidden" style="--i:0"><span class="esc-no">1</span><span class="esc-txt">Nutricionista, membro efetivo da Ordem dos Nutricionistas (C.P. 2069N)</span></li>
+          <li class="esc-item sr-hidden" style="--i:1"><span class="esc-no">2</span><span class="esc-txt">Pós-Graduação em Nutrição Pediátrica e Escolar</span></li>
+          <li class="esc-item sr-hidden" style="--i:2"><span class="esc-no">3</span><span class="esc-txt">Formação avançada em Introdução Alimentar</span></li>
+          <li class="esc-item sr-hidden" style="--i:3"><span class="esc-no">4</span><span class="esc-txt">Curso de Suporte Básico de Vida Pediátrico</span></li>
+          <li class="esc-item sr-hidden" style="--i:4"><span class="esc-no">5</span><span class="esc-txt">Curso de Primeiros Socorros Pediátricos</span></li>
+          <li class="esc-item sr-hidden" style="--i:5"><span class="esc-no">6</span><span class="esc-txt">Certificação de Profissionais de Saúde Neurocompatíveis&reg;</span></li>
+          <li class="esc-item sr-hidden" style="--i:6"><span class="esc-no">7</span><span class="esc-txt">Certificação em Get Permission Approach&reg;</span></li>
+        </ol>
+      </div>
     </div>
     <p class="forma-final sr-hidden">A informação certa pode mudar completamente a forma como uma família vive a introdução alimentar. E acredito que esse conhecimento <span class="txt-grad">deve estar ao alcance de todos.</span></p>
     <div class="cta-row forma-cta"><button type="button" class="btn lg js-pop">Garantir o meu lugar</button></div>
@@ -327,6 +336,60 @@
     });
   },{threshold:0.12,rootMargin:'0px 0px -40px 0px'});
   Array.prototype.forEach.call(targets,function(el){io.observe(el)});
+})();
+
+/* ===== r2 item 10: linha ascendente da Formacao ===== */
+(function(){
+  var esc=document.querySelector('.escada');
+  if(!esc)return;
+  var svg=esc.querySelector('.esc-svg'),linha=esc.querySelector('.esc-linha'),seta=esc.querySelector('.esc-seta');
+  if(!svg||!linha||!seta)return;
+  var reduz=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;
+  function centro(el){
+    var x=0,y=0,n=el;
+    while(n&&n!==esc){x+=n.offsetLeft;y+=n.offsetTop;n=n.offsetParent;}
+    return {x:x+el.offsetWidth/2,y:y+el.offsetHeight/2};
+  }
+  function desenha(){
+    if(getComputedStyle(svg).display==='none'){linha.removeAttribute('d');seta.removeAttribute('d');return;}
+    var p=Array.prototype.map.call(esc.querySelectorAll('.esc-no'),centro);
+    if(p.length<2)return;
+    p.sort(function(a,b){return a.x-b.x});
+    var W=esc.offsetWidth,H=esc.offsetHeight;
+    svg.setAttribute('viewBox','0 0 '+W+' '+H);
+    /* Catmull-Rom -> cubicas, curva suave a subir */
+    var d='M '+p[0].x+' '+p[0].y;
+    for(var i=0;i<p.length-1;i++){
+      var p0=p[i-1]||p[i],p1=p[i],p2=p[i+1],p3=p[i+2]||p[i+1];
+      d+=' C '+(p1.x+(p2.x-p0.x)/6)+' '+(p1.y+(p2.y-p0.y)/6)
+       +' '+(p2.x-(p3.x-p1.x)/6)+' '+(p2.y-(p3.y-p1.y)/6)
+       +' '+p2.x+' '+p2.y;
+    }
+    linha.setAttribute('d',d);
+    /* ponta de seta a continuar a subida */
+    var u=p[p.length-1],v=p[p.length-2];
+    var dx=u.x-v.x,dy=u.y-v.y,m=Math.sqrt(dx*dx+dy*dy)||1;
+    dx/=m;dy/=m;
+    var ex=u.x+dx*54,ey=u.y+dy*54;
+    var a=Math.atan2(dy,dx);
+    seta.setAttribute('d','M '+u.x+' '+u.y+' L '+ex+' '+ey
+      +' M '+ex+' '+ey+' L '+(ex-14*Math.cos(a-0.42))+' '+(ey-14*Math.sin(a-0.42))
+      +' M '+ex+' '+ey+' L '+(ex-14*Math.cos(a+0.42))+' '+(ey-14*Math.sin(a+0.42)));
+    var g=esc.querySelector('#escG');
+    g.setAttribute('x1',p[0].x);g.setAttribute('y1',p[0].y);g.setAttribute('x2',ex);g.setAttribute('y2',ey);
+    esc.style.setProperty('--esc-len',Math.ceil(linha.getTotalLength()+80));
+    if(reduz)esc.classList.add('drawn');
+  }
+  desenha();
+  if(document.fonts&&document.fonts.ready)document.fonts.ready.then(desenha);
+  window.addEventListener('load',desenha);
+  var t;window.addEventListener('resize',function(){clearTimeout(t);t=setTimeout(function(){esc.classList.remove('drawn');desenha();esc.classList.add('drawn');},160);});
+  if(!reduz&&'IntersectionObserver' in window){
+    var io=new IntersectionObserver(function(e){
+      if(e[0].isIntersecting){desenha();esc.classList.add('drawn');io.disconnect();}
+    },{threshold:.12});
+    io.observe(esc);
+  }else{esc.classList.add('drawn');}
 })();
 
 /* ===== r2 item 4: serpentina — desenha a linha pelos centros reais dos nos ===== */

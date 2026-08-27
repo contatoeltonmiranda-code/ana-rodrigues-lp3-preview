@@ -304,22 +304,34 @@ section{position:relative}
 .seal .seal-core{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:59.1%;height:59.1%;border-radius:50%;background:#fff;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;box-shadow:inset 0 0 0 1px rgba(229,137,96,.3),0 4px 12px rgba(169,94,61,.2)}
 @keyframes sealSpin{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){.seal .seal-rot,.seal .seal-glow{animation:none}}
-/* SEC 7b — FORMACAO */
+/* SEC 7b — FORMACAO (r2 item 10: linha ascendente com nos) */
 .form-box{position:relative;background:var(--grad-card);border:1px solid var(--linha);border-radius:20px;padding:28px 30px;box-shadow:var(--sh-soft);overflow:hidden}
 .form-box::after{content:"";position:absolute;top:0;left:30px;width:64px;height:4px;border-radius:0 0 4px 4px;background:var(--grad-sage-claro);box-shadow:0 0 10px rgba(229,137,96,.4)}
 .form-box h3{font-size:20px;margin-bottom:16px;display:flex;align-items:center;gap:11px}
 .form-box h3 .fh{width:34px;height:34px;border-radius:50%;background:var(--grad-sage);display:flex;align-items:center;justify-content:center;flex-shrink:0}
 .form-box h3 .fh svg{width:18px;height:18px;stroke:#fff;stroke-width:2.4;fill:none;stroke-linecap:round;stroke-linejoin:round}
-.res-list{list-style:none;display:grid;gap:12px}
-.res-list li{display:flex;gap:11px;align-items:flex-start;font-size:14.4px;color:var(--texto);line-height:1.5}
-.res-list li::before{content:"";flex-shrink:0;width:8px;height:8px;margin-top:8px;border-radius:50%;background:var(--grad-coral)}
 .sec-forma{background:var(--cream);overflow:visible;padding-top:0;margin-top:0}
-.sec-forma .form-box{position:relative;z-index:2;top:-75px;margin:0 auto -75px;max-width:920px;padding:34px 38px;box-shadow:0 26px 60px rgba(169,94,61,.16)}
+.sec-forma .form-box{position:relative;z-index:2;top:-75px;margin:0 auto -75px;max-width:920px;padding:34px 38px 40px;box-shadow:0 26px 60px rgba(169,94,61,.16)}
 .sec-forma .form-box::after{left:38px;width:78px}
-.sec-forma .form-box h3{font-size:24px;margin-bottom:22px}
+.sec-forma .form-box h3{font-size:24px;margin-bottom:0;position:relative;z-index:3}
 .sec-forma .form-box h3 .fh{width:40px;height:40px}
 .sec-forma .form-box h3 .fh svg{width:21px;height:21px}
-.sec-forma .res-list{grid-template-columns:1fr 1fr;grid-template-rows:repeat(4,auto);grid-auto-flow:column;gap:14px 34px}
+.escada{position:relative;margin-top:-16px;padding-top:70px}
+.esc-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
+.esc-svg path{stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;
+  stroke-dasharray:var(--esc-len,0);stroke-dashoffset:var(--esc-len,0);
+  transition:stroke-dashoffset 1.5s cubic-bezier(.6,.02,.28,1)}
+.escada.drawn .esc-svg path{stroke-dashoffset:0}
+@media(prefers-reduced-motion:reduce){.esc-svg path{transition:none;stroke-dashoffset:0}}
+.esc-lista{list-style:none;position:relative;z-index:1;display:flex;flex-direction:column-reverse;gap:16px}
+.esc-item{display:flex;align-items:center;gap:16px;margin-left:calc(var(--i) * var(--esc-passo,72px));max-width:calc(310px + var(--esc-passo,72px) * 6 - var(--i) * 0px)}
+.esc-no{flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:var(--grad-sage);color:#fff;
+  display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;
+  font-weight:800;font-size:18px;box-shadow:0 8px 20px rgba(169,94,61,.34),inset 0 0 0 2px rgba(255,255,255,.5);
+  transition:transform .3s ease}
+.esc-item:nth-child(2n) .esc-no{background:var(--grad-coral);box-shadow:0 8px 20px rgba(150,77,89,.32),inset 0 0 0 2px rgba(255,255,255,.5)}
+.esc-txt{font-size:14.6px;color:var(--texto);line-height:1.48;max-width:310px}
+@media(hover:hover){.esc-item:hover .esc-no{transform:scale(1.08)}}
 .sec-forma .forma-final{max-width:700px;margin:52px auto 0;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(18px,2.2vw,23px);color:var(--ink);line-height:1.4}
 .sec-forma .forma-cta{justify-content:center;margin-top:30px}
 /* SEC 8 — FAQ */
@@ -386,7 +398,11 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .sobre-split{grid-template-columns:1fr;gap:56px}
   .sobre-visual{order:-1;max-width:360px;margin:0 auto;min-height:0}
   .sec-forma .form-box{max-width:620px}
-  .sec-forma .res-list{grid-template-columns:1fr;grid-template-rows:none;grid-auto-flow:row;gap:12px}
+  .escada{--esc-passo:0px;margin-top:6px;padding-top:0}
+  .esc-svg{display:none}
+  .esc-lista{flex-direction:column;gap:14px}
+  .esc-item{max-width:none}
+  .esc-txt{max-width:none}
   .sobre-final{margin-left:auto;margin-right:auto}
 }
 @media(max-width:1100px){
@@ -461,7 +477,10 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .form-box{padding:24px 20px}
   .sec-forma .form-box{padding:26px 22px}
   .sec-forma .form-box::after{left:22px;width:60px}
-  .sec-forma .form-box h3{font-size:21px;margin-bottom:18px}
+  .sec-forma .form-box h3{font-size:21px}
+  .esc-no{width:40px;height:40px;font-size:16px}
+  .esc-item{gap:13px}
+  .esc-txt{font-size:14.2px}
 }
 
 /* =====================================================================
