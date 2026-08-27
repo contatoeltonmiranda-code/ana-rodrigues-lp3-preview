@@ -315,13 +315,13 @@
           <path class="esc-seta" fill="none" stroke="url(#escG)"/>
         </svg>
         <ol class="esc-lista">
-          <li class="esc-item sr-hidden" style="--i:0"><span class="esc-no">1</span><span class="esc-txt">Nutricionista, membro efetivo da Ordem dos Nutricionistas (C.P. 2069N)</span></li>
-          <li class="esc-item sr-hidden" style="--i:1"><span class="esc-no">2</span><span class="esc-txt">Pós-Graduação em Nutrição Pediátrica e Escolar</span></li>
-          <li class="esc-item sr-hidden" style="--i:2"><span class="esc-no">3</span><span class="esc-txt">Formação avançada em Introdução Alimentar</span></li>
-          <li class="esc-item sr-hidden" style="--i:3"><span class="esc-no">4</span><span class="esc-txt">Curso de Suporte Básico de Vida Pediátrico</span></li>
-          <li class="esc-item sr-hidden" style="--i:4"><span class="esc-no">5</span><span class="esc-txt">Curso de Primeiros Socorros Pediátricos</span></li>
-          <li class="esc-item sr-hidden" style="--i:5"><span class="esc-no">6</span><span class="esc-txt">Certificação de Profissionais de Saúde Neurocompatíveis&reg;</span></li>
-          <li class="esc-item sr-hidden" style="--i:6"><span class="esc-no">7</span><span class="esc-txt">Certificação em Get Permission Approach&reg;</span></li>
+          <li class="esc-item sr-hidden" style="--i:0;--dx:0px;--d:56px;--nf:21px"><span class="esc-no">1</span><span class="esc-txt">Nutricionista, membro efetivo da Ordem dos Nutricionistas (C.P. 2069N)</span></li>
+          <li class="esc-item sr-hidden" style="--i:1;--dx:120px;--d:52px;--nf:19.5px"><span class="esc-no">2</span><span class="esc-txt">Pós-Graduação em Nutrição Pediátrica e Escolar</span></li>
+          <li class="esc-item sr-hidden" style="--i:2;--dx:210px;--d:48px;--nf:18px"><span class="esc-no">3</span><span class="esc-txt">Formação avançada em Introdução Alimentar</span></li>
+          <li class="esc-item sr-hidden" style="--i:3;--dx:276px;--d:44px;--nf:16.8px"><span class="esc-no">4</span><span class="esc-txt">Curso de Suporte Básico de Vida Pediátrico</span></li>
+          <li class="esc-item sr-hidden" style="--i:4;--dx:324px;--d:40px;--nf:15.6px"><span class="esc-no">5</span><span class="esc-txt">Curso de Primeiros Socorros Pediátricos</span></li>
+          <li class="esc-item sr-hidden" style="--i:5;--dx:357px;--d:37px;--nf:14.6px"><span class="esc-no">6</span><span class="esc-txt">Certificação de Profissionais de Saúde Neurocompatíveis&reg;</span></li>
+          <li class="esc-item sr-hidden" style="--i:6;--dx:381px;--d:34px;--nf:13.6px"><span class="esc-no">7</span><span class="esc-txt">Certificação em Get Permission Approach&reg;</span></li>
         </ol>
       </div>
     </div>
@@ -443,18 +443,24 @@
     svg.setAttribute('viewBox','0 0 '+W+' '+H);
     /* Catmull-Rom -> cubicas, curva suave a subir */
     var d='M '+p[0].x+' '+p[0].y;
+    function dist(a,b){return Math.sqrt(Math.pow(b.x-a.x,2)+Math.pow(b.y-a.y,2));}
     for(var i=0;i<p.length-1;i++){
       var p0=p[i-1]||p[i],p1=p[i],p2=p[i+1],p3=p[i+2]||p[i+1];
-      d+=' C '+(p1.x+(p2.x-p0.x)/6)+' '+(p1.y+(p2.y-p0.y)/6)
-       +' '+(p2.x-(p3.x-p1.x)/6)+' '+(p2.y-(p3.y-p1.y)/6)
-       +' '+p2.x+' '+p2.y;
+      /* Catmull-Rom CENTRIPETO (alpha=.5): os passos horizontais sao muito desiguais
+         (118 -> 22px) e a versao uniforme faria a curva sair fora dos nos */
+      var d1=Math.pow(dist(p0,p1),.5)||1e-4,d2=Math.pow(dist(p1,p2),.5)||1e-4,d3=Math.pow(dist(p2,p3),.5)||1e-4;
+      var b1x=(d1*d1*p2.x-d2*d2*p0.x+(2*d1*d1+3*d1*d2+d2*d2)*p1.x)/(3*d1*(d1+d2));
+      var b1y=(d1*d1*p2.y-d2*d2*p0.y+(2*d1*d1+3*d1*d2+d2*d2)*p1.y)/(3*d1*(d1+d2));
+      var b2x=(d3*d3*p1.x-d2*d2*p3.x+(2*d3*d3+3*d3*d2+d2*d2)*p2.x)/(3*d3*(d3+d2));
+      var b2y=(d3*d3*p1.y-d2*d2*p3.y+(2*d3*d3+3*d3*d2+d2*d2)*p2.y)/(3*d3*(d3+d2));
+      d+=' C '+b1x+' '+b1y+' '+b2x+' '+b2y+' '+p2.x+' '+p2.y;
     }
     linha.setAttribute('d',d);
     /* ponta de seta a continuar a subida */
     var u=p[p.length-1],v=p[p.length-2];
     var dx=u.x-v.x,dy=u.y-v.y,m=Math.sqrt(dx*dx+dy*dy)||1;
     dx/=m;dy/=m;
-    var ex=u.x+dx*54,ey=u.y+dy*54;
+    var ex=u.x+dx*44,ey=u.y+dy*44;
     var a=Math.atan2(dy,dx);
     seta.setAttribute('d','M '+u.x+' '+u.y+' L '+ex+' '+ey
       +' M '+ex+' '+ey+' L '+(ex-14*Math.cos(a-0.42))+' '+(ey-14*Math.sin(a-0.42))

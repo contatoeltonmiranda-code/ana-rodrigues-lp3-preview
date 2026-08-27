@@ -388,21 +388,29 @@ section{position:relative}
 .sec-forma .form-box h3{font-size:24px;margin-bottom:0;position:relative;z-index:3}
 .sec-forma .form-box h3 .fh{width:40px;height:40px}
 .sec-forma .form-box h3 .fh svg{width:21px;height:21px}
-.escada{position:relative;margin-top:-16px;padding-top:70px}
+.escada{position:relative;margin-top:-56px;padding-top:44px;--esc-ds:1}
 .esc-svg{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:visible}
 .esc-svg path{stroke-width:1.7;fill:none;stroke-linecap:round;stroke-linejoin:round;
   stroke-dasharray:var(--esc-len,0);stroke-dashoffset:var(--esc-len,0);
   transition:stroke-dashoffset 1.5s cubic-bezier(.6,.02,.28,1)}
 .escada.drawn .esc-svg path{stroke-dashoffset:0}
 @media(prefers-reduced-motion:reduce){.esc-svg path{transition:none;stroke-dashoffset:0}}
-.esc-lista{list-style:none;position:relative;z-index:1;display:flex;flex-direction:column-reverse;gap:16px}
-.esc-item{display:flex;align-items:center;gap:16px;margin-left:calc(var(--i) * var(--esc-passo,72px));max-width:calc(310px + var(--esc-passo,72px) * 6 - var(--i) * 0px)}
-.esc-no{flex:0 0 auto;width:46px;height:46px;border-radius:50%;background:var(--grad-sage);color:#fff;
+/* Curva medida na ref 19.png: y = x^2.1, tangente de 3 a 46 graus, racio V/H .55.
+   Aqui o vao vertical esta preso as 7 linhas de texto (quase uniforme), por isso a
+   curvatura vem toda do passo horizontal decrescente: 120/90/66/48/33/24 px, que da
+   uma tangente de 26 a 61 graus. Cada <li> traz o seu --dx (deslocamento), --d
+   (diametro do no) e --nf (corpo do numero) inline. */
+.esc-lista{list-style:none;position:relative;z-index:1;display:flex;flex-direction:column-reverse;gap:4px}
+.esc-item{display:flex;align-items:center;gap:14px;margin-left:calc(var(--dx,0px) * var(--esc-k,1))}
+.esc-no{flex:0 0 auto;width:max(32px,calc(var(--d,46px) * var(--esc-ds,1)));
+  height:max(32px,calc(var(--d,46px) * var(--esc-ds,1)));
+  border-radius:50%;background:var(--grad-sage);color:#fff;
   display:flex;align-items:center;justify-content:center;font-family:'Plus Jakarta Sans',sans-serif;
-  font-weight:800;font-size:18px;box-shadow:0 8px 20px rgba(169,94,61,.34),inset 0 0 0 2px rgba(255,255,255,.5);
+  font-weight:800;font-size:max(13.6px,calc(var(--nf,18px) * var(--esc-ds,1)));line-height:1;
+  box-shadow:0 8px 20px rgba(169,94,61,.34),inset 0 0 0 2px rgba(255,255,255,.5);
   transition:transform .3s ease}
 .esc-item:nth-child(2n) .esc-no{background:var(--grad-coral);box-shadow:0 8px 20px rgba(150,77,89,.32),inset 0 0 0 2px rgba(255,255,255,.5)}
-.esc-txt{font-size:14.6px;color:var(--texto);line-height:1.48;max-width:310px}
+.esc-txt{font-size:14.6px;color:var(--texto);line-height:1.48}
 @media(hover:hover){.esc-item:hover .esc-no{transform:scale(1.08)}}
 .sec-forma .forma-final{max-width:700px;margin:52px auto 0;text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(18px,2.2vw,23px);color:var(--ink);line-height:1.4}
 .sec-forma .forma-cta{justify-content:center;margin-top:30px}
@@ -483,11 +491,9 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .sobre-split{grid-template-columns:1fr;gap:56px}
   .sobre-visual{order:-1;max-width:360px;margin:0 auto;min-height:0}
   .sec-forma .form-box{max-width:620px}
-  .escada{--esc-passo:0px;margin-top:6px;padding-top:0}
+  .escada{--esc-k:0;--esc-ds:.92;margin-top:6px;padding-top:0}
   .esc-svg{display:none}
   .esc-lista{flex-direction:column;gap:14px}
-  .esc-item{max-width:none}
-  .esc-txt{max-width:none}
   .sobre-final{margin-left:auto;margin-right:auto}
 }
 @media(max-width:1100px){
@@ -565,7 +571,7 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .sec-forma .form-box{padding:26px 22px}
   .sec-forma .form-box::after{left:22px;width:60px}
   .sec-forma .form-box h3{font-size:21px}
-  .esc-no{width:40px;height:40px;font-size:16px}
+  .escada{--esc-ds:.8}
   .esc-item{gap:13px}
   .esc-txt{font-size:14.2px}
 }
