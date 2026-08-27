@@ -94,6 +94,9 @@ section{position:relative}
   background:var(--curv-to,var(--areia));border-top:1.5px solid rgba(229,137,96,.32);
   border-radius:50% 50% 0 0/100% 100% 0 0}
 .curv-up.to-areia{--curv-to:var(--areia)}
+.curv-up.to-cream{--curv-to:var(--cream)}
+/* seccoes que hospedam um domo precisam de folga para o conteudo nao ser cortado */
+.sec-duv,.sec-mod,.sec-oferta{padding-bottom:158px}
 .curv-up.to-sobre{--curv-to:linear-gradient(120deg,#EBEAE7 0%,#EFEBEF 46%,#F1ECF3 100%)}
 /* SEC 2 — PARA TI SE (r2 item 3: 2 colunas, arte a esquerda) */
 .sec-duv{background:var(--areia);overflow:hidden}
@@ -457,6 +460,7 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .rl-n{width:38px;height:38px;font-size:16px}
   .rl-t{font-size:15px}
   .sec{padding:60px 0}
+  .sec-duv,.sec-mod,.sec-oferta{padding-bottom:106px}
   .sec-forma{padding-top:0;padding-bottom:60px}
   .hero{padding:44px 0 92px}
   .hero h1{font-size:clamp(27px,7.4vw,37px)}
