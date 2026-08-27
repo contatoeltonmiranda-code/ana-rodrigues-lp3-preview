@@ -7,6 +7,7 @@
    ===================================================================== */
 :root{
   --cream:#FAFAF8; --cream2:#F5EEE7; --paper:#FFFFFF; --white:#FFFFFF;
+  --areia:#F4E9DE; --areia-fim:#EEDFD0;
   --sage:#E58960; --sage-esc:#B96136; --sage-claro:#EDB393;
   --coral:#B96A75; --coral-esc:#964D59; --coral-claro:#D9A8AE;
   --amarelo:#ECD181; --amarelo-esc:#836624;
@@ -87,37 +88,15 @@ section{position:relative}
 .hero-meta .hm-sep{color:var(--linha)}
 .hero-visual{position:relative;display:flex;justify-content:center}
 .hero-visual .prod-frame{width:100%;max-width:560px;aspect-ratio:1022/876}
-/* MARQUEE X DUPLO */
-.marquee{background:transparent;position:relative;z-index:40;display:flex;flex-direction:column}
-.marquee-bar{position:relative;width:100%;overflow:hidden;white-space:nowrap;padding:16px 0}
-.marquee-bar.back{background:rgba(229,137,96,.16);border-top:1px solid rgba(229,137,96,.22);border-bottom:1px solid rgba(229,137,96,.22)}
-.marquee-bar.front{background:rgba(185,106,117,.14);border-bottom:1px solid rgba(185,106,117,.2)}
-.marquee-track{display:inline-flex;width:max-content;will-change:transform}
-.marquee-track .mq-seg{display:inline-flex;flex:0 0 auto;align-items:center}
-.marquee-bar.front .marquee-track{animation:mq-scroll 78s linear infinite}
-.marquee-bar.back .marquee-track{animation:mq-scroll-rev 86s linear infinite}
-.marquee-track span{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(14px,1.5vw,19px);letter-spacing:.6px;padding:0 16px;white-space:nowrap}
-.marquee-bar.front .marquee-track span{color:#964D59}
-.marquee-bar.back .marquee-track span{color:#B96136}
-.marquee-track .dot{opacity:.4}
-@keyframes mq-scroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
-@keyframes mq-scroll-rev{0%{transform:translateX(-50%)}100%{transform:translateX(0)}}
-@media(prefers-reduced-motion:reduce){.marquee-track{animation:none!important}}
-/* BARRAS RETAS */
-.strips{position:relative;z-index:30}
-.strip{overflow:hidden;white-space:nowrap}
-.strip .marquee-track{padding:16px 0}
-.strip.sage{background:rgba(229,137,96,.16);border-top:1px solid rgba(229,137,96,.22);border-bottom:1px solid rgba(229,137,96,.22)}
-.strip.coral{background:rgba(236,209,129,.22);border-bottom:1px solid rgba(209,174,80,.28)}
-.strip .strip-a{animation:mq-scroll 96s linear infinite}
-.strip .strip-b{animation:mq-scroll-rev 106s linear infinite}
-.strip span{font-family:'Inter',sans-serif;font-weight:400;font-size:clamp(14px,1.5vw,19px);letter-spacing:.6px;padding:0 16px;white-space:nowrap}
-.strip.sage span{color:#B96136}
-.strip.coral span{color:#836624}
-.strip .dot{opacity:.4}
-@media(prefers-reduced-motion:reduce){.strip .marquee-track{animation:none!important}}
+/* DIVISOR CURVO (r2 item 2/8) — domo da seccao de baixo a subir para dentro da de cima.
+   Vai como ultimo filho da seccao DE CIMA (que tem overflow:hidden/clip e position:relative). */
+.curv-up{position:absolute;left:-6%;right:-6%;bottom:-1px;height:var(--curv-h,104px);z-index:4;pointer-events:none;
+  background:var(--curv-to,var(--areia));border-top:1.5px solid rgba(229,137,96,.32);
+  border-radius:50% 50% 0 0/100% 100% 0 0}
+.curv-up.to-areia{--curv-to:var(--areia)}
+.curv-up.to-sobre{--curv-to:linear-gradient(120deg,#EBEAE7 0%,#EFEBEF 46%,#F1ECF3 100%)}
 /* SEC 2 — PARA TI SE */
-.sec-duv{background:var(--paper);overflow:hidden}
+.sec-duv{background:var(--areia);overflow:hidden}
 .duv-intro{text-align:center;font-family:'Plus Jakarta Sans',sans-serif;font-weight:700;font-size:clamp(17px,2vw,21px);color:var(--sage-esc);margin:34px auto 0}
 .q-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:1000px;margin:26px auto 0}
 .q-card{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;background:var(--grad-card);border:1px solid var(--linha);border-radius:18px;padding:26px 22px 24px;box-shadow:var(--sh-soft);font-size:14.6px;color:var(--texto);line-height:1.5;transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
@@ -167,7 +146,7 @@ section{position:relative}
 .step-body h3{font-size:19.5px;margin-bottom:0;color:var(--ink);line-height:1.28}
 @media(prefers-reduced-motion:reduce){.step{opacity:1;transform:none;transition:none}.steps{--fill:1}.steps::after{transition:none}}
 /* SEC 5 — BONUS */
-.sec-bonus{background:var(--grad-warm);overflow:hidden}
+.sec-bonus{background:linear-gradient(160deg,var(--areia) 0%,var(--areia-fim) 100%);overflow:hidden}
 .sec-bonus::before{content:"";position:absolute;top:0;right:0;width:56%;height:6px;background:linear-gradient(270deg,var(--coral),var(--sage) 50%,transparent);filter:drop-shadow(0 0 6px rgba(185,106,117,.4));pointer-events:none;z-index:3}
 .sec-bonus::after{content:"";position:absolute;bottom:0;left:0;width:56%;height:6px;background:linear-gradient(90deg,var(--sage),var(--coral) 50%,transparent);filter:drop-shadow(0 0 6px rgba(229,137,96,.4));pointer-events:none;z-index:3}
 .bon-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:44px 26px;margin-top:52px}
@@ -190,6 +169,7 @@ section{position:relative}
 .sec-oferta{background:var(--paper);overflow:hidden;padding-top:110px}
 .sec-oferta::before,.sec-oferta::after{content:"";position:absolute;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--sage),transparent);pointer-events:none;z-index:2}
 .sec-oferta::before{top:0}.sec-oferta::after{bottom:0}
+.sec-oferta.has-curv::after{display:none}
 .sec-oferta>.wrap{position:relative;z-index:1}
 /* fotos reais da Ana nos cantos, como marca de agua (padrao da LP 2) */
 .of-bg{position:absolute;inset:0;z-index:0;pointer-events:none;overflow:hidden}
@@ -311,7 +291,7 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .bon-item{flex:0 0 calc(50% - 13px)}
 }
 @media(max-width:960px){
-  .hero{padding:64px 0 72px}
+  .hero{padding:64px 0 104px}
   .hero-grid{grid-template-columns:1fr;gap:44px}
   .hero-visual{order:-1}
   .hero-visual .prod-frame{max-width:520px}
@@ -338,7 +318,7 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .wrap{padding:0 18px}
   .sec{padding:60px 0}
   .sec-forma{padding-top:0;padding-bottom:60px}
-  .hero{padding:44px 0 60px}
+  .hero{padding:44px 0 92px}
   .hero h1{font-size:clamp(27px,7.4vw,37px)}
   .hero-pill{font-size:9.6px;letter-spacing:1.1px;padding:6px 13px;margin-bottom:16px}
   .sec h2{font-size:clamp(25px,7vw,34px)}
@@ -363,10 +343,7 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .of-bg .b1{top:14px;left:-50px}
   .of-bg .b2{width:210px;bottom:22px;right:-46px}
   .of-bg .b3{width:182px;top:-26px;right:-42px;opacity:.075}
-  .marquee-bar{padding:11px 0}
-  .marquee-track span{font-size:13px;padding:0 11px}
-  .strip .marquee-track{padding:11px 0}
-  .strip span{font-size:13px;padding:0 11px}
+  .curv-up{--curv-h:56px}
   .sobre-foto{max-width:270px}
   .sobre-seal{width:112px;height:112px;right:-12px;bottom:26px}
   .seal{width:112px;height:112px}
