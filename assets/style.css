@@ -70,24 +70,29 @@ section{position:relative}
 .prod-frame{position:relative;border-radius:22px;overflow:hidden;box-shadow:var(--sh-mid);z-index:1}
 .prod-frame::before{content:"";position:absolute;inset:0;border-radius:22px;padding:3px;background:conic-gradient(from var(--angle),rgba(229,137,96,0) 0deg,rgba(229,137,96,0) 200deg,var(--sage) 260deg,var(--coral) 305deg,#fff 325deg,var(--sage) 345deg,rgba(229,137,96,0) 360deg);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;animation:angleSpin 6s linear infinite;pointer-events:none;z-index:3}
 .prod-frame img{width:100%;height:100%;object-fit:cover;border-radius:22px}
-.prod-ring{position:absolute;inset:-14px;border-radius:30px;border:1.5px solid rgba(229,137,96,.3);z-index:0;animation:ringPulse 4.5s ease-in-out infinite}
-.prod-glow{position:absolute;inset:-36px;border-radius:34px;background:radial-gradient(circle at 50% 45%,rgba(185,106,117,.2),transparent 66%);z-index:0;animation:orbBreath 5s ease-in-out infinite;pointer-events:none}
-@keyframes ringPulse{0%,100%{opacity:.4;transform:scale(1)}50%{opacity:.8;transform:scale(1.02)}}
-@media(prefers-reduced-motion:reduce){.prod-frame::before,.prod-ring,.prod-glow{animation:none}}
-/* HERO */
-.hero{position:relative;padding:104px 0 116px;background:linear-gradient(120deg,#FAF8F6 0%,#F7F1EB 58%,#F6EDE9 100%);overflow:hidden;isolation:isolate}
+@media(prefers-reduced-motion:reduce){.prod-frame::before{animation:none}}
+/* HERO (r2 item 1: bloco unico centrado, sem coluna de imagem) */
+.hero{position:relative;padding:112px 0 152px;background:linear-gradient(120deg,#FAF8F6 0%,#F7F1EB 58%,#F6EDE9 100%);overflow:hidden;isolation:isolate}
 .hero .wrap{max-width:1320px}
-.hero-grid{display:grid;grid-template-columns:minmax(0,560px) 1fr;gap:60px;align-items:center;position:relative;z-index:2}
-.hero-pill{font-size:10.5px;letter-spacing:1.6px;padding:8px 17px;margin-bottom:20px;text-transform:uppercase}
-.hero h1{font-size:clamp(31px,4.3vw,52px);margin:0 0 18px;line-height:1.1}
-.hero .sub{font-size:clamp(15px,1.2vw,17.5px);color:var(--texto);line-height:1.62;margin-bottom:28px}
+.hero-grid{position:relative;z-index:2;display:flex;justify-content:center}
+.hero-copy{max-width:860px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.hero-lock{display:flex;flex-direction:column;align-items:center;gap:12px}
+.hero-pill{font-size:10.5px;letter-spacing:1.6px;margin-bottom:0;text-transform:uppercase}
+.hero-kicker{font-family:'Playfair Display',Georgia,serif;font-weight:500;
+  font-size:clamp(27px,3.5vw,44px);line-height:1.08;letter-spacing:-.2px;color:var(--sage-esc)}
+.hero h1{font-size:clamp(31px,4.3vw,52px);margin:28px 0 18px;line-height:1.1}
+.hero .sub{font-size:clamp(15px,1.2vw,17.5px);color:var(--texto);line-height:1.62;margin-bottom:28px;max-width:640px}
 .hero .sub strong{color:var(--ink);font-weight:600}
-.hero-meta{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:18px;font-size:13.5px;color:var(--texto)}
+.hero .date-badge{margin-bottom:26px}
+.hero-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 14px;margin-top:20px;font-size:13.5px;color:var(--texto)}
 .hero-meta .hm{display:inline-flex;align-items:center;gap:7px}
 .hero-meta .hm svg{width:15px;height:15px;stroke:var(--sage-esc);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .hero-meta .hm-sep{color:var(--linha)}
-.hero-visual{position:relative;display:flex;justify-content:center}
-.hero-visual .prod-frame{width:100%;max-width:560px;aspect-ratio:1022/876}
+/* meta tambem acima da promessa, no registo discreto da referencia */
+.hero-meta.topo{margin-top:28px;gap:10px 40px;font-size:11px;font-weight:600;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--texto2)}
+.hero-meta.topo .hm{gap:9px}
+.hero-meta.topo .hm svg{width:13px;height:13px;opacity:.85}
 /* DIVISOR CURVO (r2 item 2/8) — domo da seccao de baixo a subir para dentro da de cima.
    Vai como ultimo filho da seccao DE CIMA (que tem overflow:hidden/clip e position:relative). */
 .curv-up{position:absolute;left:-6%;right:-6%;bottom:-1px;height:var(--curv-h,104px);z-index:4;pointer-events:none;
@@ -393,17 +398,12 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
 .foot-links a:hover{color:var(--sage-esc)}
 .foot-copy{font-size:12px;color:var(--texto2);line-height:1.6}
 /* RESPONSIVO */
-@media(max-width:1340px){.hero .wrap{max-width:1160px}}
 @media(max-width:1080px){
   .hero .wrap{padding:0 32px}
-  .hero-grid{grid-template-columns:minmax(0,52%) 1fr;gap:34px}
   .duv-split{grid-template-columns:.88fr 1.12fr;gap:40px}
 }
 @media(max-width:960px){
-  .hero{padding:64px 0 104px}
-  .hero-grid{grid-template-columns:1fr;gap:44px}
-  .hero-visual{order:-1}
-  .hero-visual .prod-frame{max-width:520px}
+  .hero{padding:74px 0 132px}
   .pilares{grid-template-columns:1fr 1fr;grid-template-areas:"core core" "t1 t2" "t3 t4";
     gap:34px 30px;max-width:660px;justify-items:start}
   .pil-core{justify-self:center;margin-bottom:8px}
@@ -462,9 +462,11 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
   .sec{padding:60px 0}
   .sec-duv,.sec-mod,.sec-oferta{padding-bottom:106px}
   .sec-forma{padding-top:0;padding-bottom:60px}
-  .hero{padding:44px 0 92px}
-  .hero h1{font-size:clamp(27px,7.4vw,37px)}
-  .hero-pill{font-size:9.6px;letter-spacing:1.1px;padding:6px 13px;margin-bottom:16px}
+  .hero{padding:52px 0 96px}
+  .hero h1{font-size:clamp(27px,7.4vw,37px);margin-top:18px}
+  .hero-pill{font-size:9.6px;letter-spacing:1.1px;padding:6px 13px;margin-bottom:0}
+  .hero-kicker{font-size:clamp(25px,7.6vw,34px)}
+  .hero-meta.topo{margin-top:20px;gap:8px 22px;font-size:10.2px;letter-spacing:1.2px}
   .sec h2{font-size:clamp(25px,7vw,34px)}
   .btn,.btn.lg{font-size:14px;padding:16px 22px;width:100%}
   .cta-row{margin-top:34px}
