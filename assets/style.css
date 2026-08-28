@@ -215,10 +215,14 @@ section{position:relative}
    diferentes, por isso descolavam ao estreitar a janela. O `left` compensa: quanto
    mais estreita a viewport, mais o selo anda para a direita, acompanhando a arte
    que encolhe. Travado por clamp para nao fugir nos extremos. */
-.sobre-seal.na-duv{position:absolute;bottom:-7%;right:auto;top:auto;z-index:4;
-  left:clamp(-30px,calc(-30px + (1440px - 100vw) * 0.30),150px);
+.sobre-seal.na-duv{position:absolute;z-index:4;right:auto;top:auto;
+  /* r3d: ancorado a SECCAO (nao a coluna). A arte e fundo da seccao com
+     `109% auto` a partir da esquerda; a figura cai entre ~15% e ~49% da largura.
+     Em vw o selo segue a arte em qualquer largura, que era o que falhava quando
+     estava preso a coluna -- a coluna deslocava-se e anulava o movimento. */
+  left:clamp(24px,10.5vw,190px); bottom:clamp(18px,3.4vw,54px);
   width:clamp(84px,9.2vw,132px);height:clamp(84px,9.2vw,132px)}
-@media(max-width:960px){.sobre-seal.na-duv{width:clamp(72px,16vw,104px);height:clamp(72px,16vw,104px);left:-3%;bottom:-4%}}
+@media(max-width:960px){.sobre-seal.na-duv{width:clamp(72px,16vw,104px);height:clamp(72px,16vw,104px);left:6vw;bottom:2vw}}
 .da-shape{position:relative;width:100%;max-width:392px;aspect-ratio:392/486;
   border-radius:62% 38% 44% 56%/42% 56% 44% 58%;
   background:linear-gradient(152deg,#FBEEE4 0%,#F3CDB4 40%,#E7B7B7 74%,#F2DFAF 100%);
@@ -704,6 +708,7 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
    quando a janela estreita; a arte ficava do mesmo tamanho e invadia o texto.
    Passa a `109% auto`: escala pela LARGURA, logo encolhe com a janela. 109%
    reproduz o tamanho aprovado a 1440. Vertical continua em px. */
+.sec-duv{position:relative}
 .sec-duv{background:url("art-duvidas.webp") 0% calc(50% + 24px)/109% auto no-repeat,var(--areia)}
 /* NOTA: nao repor `min-height` no .duv-art aqui — a regra original ja o faz e
    o reset de <=960px (min-height:0) tem de continuar a ganhar, senao ficam
