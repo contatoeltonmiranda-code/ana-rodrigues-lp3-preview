@@ -207,6 +207,10 @@ section{position:relative}
 @media(hover:hover){.duv-list li:hover{transform:translateX(5px);border-color:rgba(185,106,117,.55);box-shadow:var(--sh-mid)}}
 /* espaco reservado para a arte do Elton — forma organica, sem conteudo */
 .duv-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:520px}
+/* selo da credencial (C.P. 2069N) mudou-se da seccao "Sobre mim" para aqui,
+   canto inferior esquerdo da coluna da arte (pedido do Elton, r3). */
+.sobre-seal.na-duv{position:absolute;left:8px;bottom:18px;right:auto;top:auto;z-index:4;width:132px;height:132px}
+@media(max-width:960px){.sobre-seal.na-duv{width:104px;height:104px;left:0;bottom:6px}}
 .da-shape{position:relative;width:100%;max-width:392px;aspect-ratio:392/486;
   border-radius:62% 38% 44% 56%/42% 56% 44% 58%;
   background:linear-gradient(152deg,#FBEEE4 0%,#F3CDB4 40%,#E7B7B7 74%,#F2DFAF 100%);
