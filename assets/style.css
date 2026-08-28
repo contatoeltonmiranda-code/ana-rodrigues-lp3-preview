@@ -225,7 +225,7 @@ section{position:relative}
      a 50% + 24px + 0.345*0.619*W ~= 50% + 24px + 21vw. O selo assenta ai. */
   left:clamp(24px,10.5vw,190px); top:calc(50% + 24px + 17.6vw);
   width:clamp(84px,9.2vw,132px);height:clamp(84px,9.2vw,132px)}
-@media(max-width:960px){.sobre-seal.na-duv{width:clamp(72px,16vw,104px);height:clamp(72px,16vw,104px);left:6vw;top:auto;bottom:4vw}}
+@media(max-width:960px){.sobre-seal.na-duv{width:clamp(72px,16vw,104px);height:clamp(72px,16vw,104px);left:26vw;top:auto;bottom:4vw}}
 .da-shape{position:relative;width:100%;max-width:392px;aspect-ratio:392/486;
   border-radius:62% 38% 44% 56%/42% 56% 44% 58%;
   background:linear-gradient(152deg,#FBEEE4 0%,#F3CDB4 40%,#E7B7B7 74%,#F2DFAF 100%);
