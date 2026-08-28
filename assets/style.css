@@ -211,7 +211,12 @@ section{position:relative}
 .duv-art{position:relative;display:flex;align-items:center;justify-content:center;min-height:520px}
 /* selo da credencial (C.P. 2069N) mudou-se da seccao "Sobre mim" para aqui,
    canto inferior esquerdo da coluna da arte (pedido do Elton, r3). */
-.sobre-seal.na-duv{position:absolute;left:-5%;bottom:-7%;right:auto;top:auto;z-index:4;
+/* r3d: o selo vive na coluna .duv-art mas a arte e fundo da SECCAO -- referencias
+   diferentes, por isso descolavam ao estreitar a janela. O `left` compensa: quanto
+   mais estreita a viewport, mais o selo anda para a direita, acompanhando a arte
+   que encolhe. Travado por clamp para nao fugir nos extremos. */
+.sobre-seal.na-duv{position:absolute;bottom:-7%;right:auto;top:auto;z-index:4;
+  left:clamp(-5%,calc(-5% + (1440px - 100vw) * 0.115),20%);
   width:clamp(84px,9.2vw,132px);height:clamp(84px,9.2vw,132px)}
 @media(max-width:960px){.sobre-seal.na-duv{width:clamp(72px,16vw,104px);height:clamp(72px,16vw,104px);left:-3%;bottom:-4%}}
 .da-shape{position:relative;width:100%;max-width:392px;aspect-ratio:392/486;
