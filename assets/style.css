@@ -100,72 +100,92 @@ section{position:relative}
   text-transform:uppercase;color:var(--texto2)}
 .hero-meta.topo .hm{gap:9px}
 .hero-meta.topo .hm svg{width:13px;height:13px;opacity:.85}
-/* ===== ABA / DEGRAU DE SECCAO (r2b — item 2/8 reconstruido do zero) ==========
+/* ===== ABA / DEGRAU DE SECCAO (r2e — perfil corrigido: CHANFRO, nao onda) ===
    MEDIDO na ref `_ajustes/rodada-2/refs/5.png` (1430x435; area util do site
-   x=17..1416 -> largura de conteudo = 1400px). Deteccao coluna a coluna do
-   limite entre as duas seccoes (subindo a partir de y=234 ate o tom se afastar
-   mais de 2,5 niveis do tom estavel da seccao de baixo):
+   x=17..1416 -> largura de conteudo = 1400px). Perfil extraido COLUNA A COLUNA
+   com precisao subpixel (`_scratch/perfil_r2e.py`), nao de 5 em 5px como na r2b.
 
-     linha base (nivel alto) ....... y = 83
-     nivel baixo da aba ............ y = 165      -> DEGRAU = 82px
-     patamar plano ................. x = 17..701  (684px = 48,9% de 1400)
-     curva de ligacao .............. x = 701..793 ( 92px =  6,6% de 1400)
-     extensao total do degrau ...... x = 17..793  (776px = 55,4% de 1400)
+     patamar baixo ..... y = 164,9      patamar alto ..... y = 82,9
+     DEGRAU ............ 81,9 px        fim do patamar ... x = 699
+     vao do chanfro .... 85 px          fim do degrau .... x = 784
 
-   SENTIDO (medido, nao suposto): e a seccao DE CIMA que DESCE sobre a de baixo.
-   Prova: no lado esquerdo a faixa y=20..75 e a faixa y=95..155 tem a mesma
-   media (7,3 vs ~7) e desvio <1 — nao ha aresta nenhuma a y=83 do lado
-   esquerdo; a aresta so aparece a y=165. Ja do lado direito ha aresta a y=83
-   (foto, media 15,8 desvio 9,3 -> corpo liso, media 18,6 desvio 1,3).
-   Logo a aba e um prolongamento da seccao SUPERIOR, encostado a esquerda.
+   O PERFIL E UMA RETA, NAO UM ARCO. Prova: entre x=714 e x=766 o perfil ajusta
+   a uma RECTA com rms de 0,37px — incremento por coluna constante (~1,3px). Um
+   arco teria o incremento sempre a mudar. A r2b amostrou de 5 em 5px, leu os
+   incrementos `2 2 4 5 6 6 7 6 8 5 8 3 9 4 3 0 3 0 1` como "S de dois arcos" e
+   implementou dois arcos elipticos encostados — que e precisamente o que o
+   cliente descreveu como "fazendo tipo uma onda": sem troco recto, a inclinacao
+   nunca para de mudar. O que ha nas pontas (incremento a crescer de 0 ate ~1,3 e
+   a decrescer outra vez) sao ARREDONDAMENTOS pequenos, nao meio-arcos.
 
-   A curva NAO e um quarto de circulo: e tangente a horizontal nas DUAS pontas.
-   Perfil medido de 5 em 5px (x=700..795):
-     165 163 161 157 152 146 140 133 127 119 114 106 103 94 90 87 87 84 84 83
-   Ou seja um S de dois arcos tangentes. Com 90 graus por arco:
-     ry = degrau/2 = 41px   rx = corrida/2 = 46px  (arco eliptico)
+   GEOMETRIA: patamar -> raio -> RECTA -> raio -> patamar (chanfro/trapezio).
+     angulo da recta ... 52,5 graus  (ajuste limpo x=714..766, rms 0,37px)
+     raio dos cantos ... 0,25 * H = 20,5px @82  (envelope medido: 17..23px)
+     corrida da recta .. H/tan(52,5) = 0,7673 * H = 62,9px @82
+     recuo tangente t .. r*tan(26,25) = 0,1233 * H = 10,1px @82
+     vao do chanfro .... R + 2t = 1,0139 * H = 83,1px @82  (medido 85px)
+   Tudo em px derivados de --aba-h, logo O ANGULO MANTEM-SE em qualquer
+   viewport: e a corrida que escala com o degrau, como pedido.
 
-   IMPLEMENTADO: --aba-h 82px | rx 46px / ry 41px (arcos ELIPTICOS, para a
-   corrida dar os 92px medidos e nao os 82px de um arco circular) | extensao
-   total 55% da largura.
-   O patamar plano e `55% - 2R`, para a extensao total dar 55% em qualquer
-   viewport (so a corrida da curva e que fica fixa em px, como na ref).
-     ::before = corpo da aba + canto CONVEXO (border-bottom-right-radius)
-     ::after  = filete CONCAVO (quarto de disco via radial-gradient em mask)
-   Vai como PRIMEIRO filho da seccao DE BAIXO (position:relative +
-   overflow:hidden) e e pintado com a cor da seccao DE CIMA.
+   `border-radius` nao serve (nao produz segmento recto) e dois arcos tangentes
+   tambem nao. Feito com um unico `clip-path:polygon()`: os dois fillets vao
+   amostrados em 6 segmentos cada e o meio e UMA SO aresta recta. polygon()
+   aceita calc() a misturar % (largura da caixa) com px (derivados do degrau),
+   que e o que permite escalar sem distorcer o angulo.
+
+   SENTIDO (medido na r2b, mantem-se): e a seccao DE CIMA que DESCE sobre a de
+   baixo. Vai como PRIMEIRO filho da seccao DE BAIXO (position:relative +
+   overflow:hidden) e e pintada com a cor da seccao DE CIMA.
    `.dir-r` espelha para a direita (as transicoes alternam esq/dir). */
 .aba{position:absolute;left:0;right:0;top:0;z-index:1;pointer-events:none;
   --aba-h:82px;--aba-total:55%;
-  --aba-ry:calc(var(--aba-h) / 2);        /* 41px: metade do degrau */
-  --aba-rx:calc(var(--aba-h) * .561);     /* 46px: corrida medida 92px = 2*46 */
   height:var(--aba-h);
   filter:drop-shadow(0 3px 7px rgba(169,94,61,.10))}
 .aba.dir-r{transform:scaleX(-1)}
-.aba::before,.aba::after{content:"";position:absolute;top:-1px;
-  background:var(--aba-cor,var(--cream))}
-/* corpo da aba + canto CONVEXO: arco de centro (F, H-R), tangente horizontal
-   em x=F e tangente vertical em x=F+R. */
-.aba::before{left:0;height:calc(100% + 1px);
-  width:calc(var(--aba-total) - var(--aba-rx));
-  border-bottom-right-radius:var(--aba-rx) var(--aba-ry)}
-/* filete CONCAVO: caixa RxR cujo canto inferior-direito e o centro do arco
-   (F+2R, R). Preenche-se o que fica FORA do circulo -> curva ao contrario da
-   de cima, tangente vertical em x=F+R e horizontal em x=F+2R. Sobrepoe 1px
-   a ::before para nao deixar emenda de antialiasing. */
-.aba::after{height:calc(var(--aba-ry) + 1px);
-  left:calc(var(--aba-total) - var(--aba-rx) - 1px);
-  width:calc(var(--aba-rx) + 1px);
-  -webkit-mask:radial-gradient(ellipse var(--aba-rx) var(--aba-ry) at right 0 bottom 0,transparent 99.5%,#000 100%);
-  mask:radial-gradient(ellipse var(--aba-rx) var(--aba-ry) at right 0 bottom 0,transparent 99.5%,#000 100%)}
+/* uma so forma: patamar + chanfro. A caixa tem a extensao total (55%) e o
+   chanfro e recortado a contar da BORDA DIREITA, por isso o patamar plano
+   absorve sozinho a variacao de largura do viewport. */
+.aba::before{content:"";position:absolute;left:0;top:-1px;
+  width:var(--aba-total);height:calc(100% + 1px);
+  background:var(--aba-cor,var(--cream));
+  -webkit-clip-path:polygon(
+    0 0, 100% 0, 100% calc(100% - 1.0000 * var(--aba-h)),
+    calc(100% - 0.0380 * var(--aba-h)) calc(100% - 0.9971 * var(--aba-h)),
+    calc(100% - 0.0752 * var(--aba-h)) calc(100% - 0.9884 * var(--aba-h)),
+    calc(100% - 0.1106 * var(--aba-h)) calc(100% - 0.9742 * var(--aba-h)),
+    calc(100% - 0.1434 * var(--aba-h)) calc(100% - 0.9548 * var(--aba-h)),
+    calc(100% - 0.1729 * var(--aba-h)) calc(100% - 0.9306 * var(--aba-h)),
+    calc(100% - 0.1983 * var(--aba-h)) calc(100% - 0.9022 * var(--aba-h)),
+    calc(100% - 0.8156 * var(--aba-h)) calc(100% - 0.0978 * var(--aba-h)),
+    calc(100% - 0.8410 * var(--aba-h)) calc(100% - 0.0694 * var(--aba-h)),
+    calc(100% - 0.8705 * var(--aba-h)) calc(100% - 0.0452 * var(--aba-h)),
+    calc(100% - 0.9033 * var(--aba-h)) calc(100% - 0.0258 * var(--aba-h)),
+    calc(100% - 0.9387 * var(--aba-h)) calc(100% - 0.0116 * var(--aba-h)),
+    calc(100% - 0.9759 * var(--aba-h)) calc(100% - 0.0029 * var(--aba-h)),
+    calc(100% - 1.0139 * var(--aba-h)) 100%, 0 100%);
+  clip-path:polygon(
+    0 0, 100% 0, 100% calc(100% - 1.0000 * var(--aba-h)),
+    calc(100% - 0.0380 * var(--aba-h)) calc(100% - 0.9971 * var(--aba-h)),
+    calc(100% - 0.0752 * var(--aba-h)) calc(100% - 0.9884 * var(--aba-h)),
+    calc(100% - 0.1106 * var(--aba-h)) calc(100% - 0.9742 * var(--aba-h)),
+    calc(100% - 0.1434 * var(--aba-h)) calc(100% - 0.9548 * var(--aba-h)),
+    calc(100% - 0.1729 * var(--aba-h)) calc(100% - 0.9306 * var(--aba-h)),
+    calc(100% - 0.1983 * var(--aba-h)) calc(100% - 0.9022 * var(--aba-h)),
+    calc(100% - 0.8156 * var(--aba-h)) calc(100% - 0.0978 * var(--aba-h)),
+    calc(100% - 0.8410 * var(--aba-h)) calc(100% - 0.0694 * var(--aba-h)),
+    calc(100% - 0.8705 * var(--aba-h)) calc(100% - 0.0452 * var(--aba-h)),
+    calc(100% - 0.9033 * var(--aba-h)) calc(100% - 0.0258 * var(--aba-h)),
+    calc(100% - 0.9387 * var(--aba-h)) calc(100% - 0.0116 * var(--aba-h)),
+    calc(100% - 0.9759 * var(--aba-h)) calc(100% - 0.0029 * var(--aba-h)),
+    calc(100% - 1.0139 * var(--aba-h)) 100%, 0 100%)}
 /* cor = a da seccao DE CIMA. `from-hero` copia a aresta inferior REAL do hero,
    amostrada no browser (1440px): x=0 -> #F9F5F1, x=55% -> #F6F0EA. Sem isto
    fica uma emenda visivel na linha de encosto, porque o hero e gradiente. */
 .aba.from-hero::before{background:linear-gradient(90deg,#F9F5F1 0%,#F6F0EA 100%)}
-.aba.from-hero::after{background:#F6F0EA}
 .aba.from-areia{--aba-cor:var(--areia)}
 .aba.from-paper{--aba-cor:var(--paper)}
-/* escala por viewport: 82/41px no desktop fica desproporcional a 390px */
+/* escala por viewport: 82px de degrau a 390px come a seccao toda.
+   So --aba-h muda; r/R/t derivam dele, logo o angulo fica nos 52,5 graus. */
 @media(max-width:1024px){.aba{--aba-h:70px}}
 @media(max-width:768px){.aba{--aba-h:58px}}
 @media(max-width:600px){.aba{--aba-h:44px}}
