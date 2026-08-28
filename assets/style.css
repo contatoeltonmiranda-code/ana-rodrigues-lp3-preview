@@ -220,9 +220,12 @@ section{position:relative}
      `109% auto` a partir da esquerda; a figura cai entre ~15% e ~49% da largura.
      Em vw o selo segue a arte em qualquer largura, que era o que falhava quando
      estava preso a coluna -- a coluna deslocava-se e anulava o movimento. */
-  left:clamp(24px,10.5vw,190px); bottom:clamp(18px,3.4vw,54px);
+  /* vertical: a arte tem altura 109%*largura/1.76 = 0.619*W e a figura acaba a
+     84.5% dela; o centro da imagem esta em 50%+24px. Logo a base da figura fica
+     a 50% + 24px + 0.345*0.619*W ~= 50% + 24px + 21vw. O selo assenta ai. */
+  left:clamp(24px,10.5vw,190px); top:calc(50% + 24px + 17.6vw);
   width:clamp(84px,9.2vw,132px);height:clamp(84px,9.2vw,132px)}
-@media(max-width:960px){.sobre-seal.na-duv{width:clamp(72px,16vw,104px);height:clamp(72px,16vw,104px);left:6vw;bottom:2vw}}
+@media(max-width:960px){.sobre-seal.na-duv{width:clamp(72px,16vw,104px);height:clamp(72px,16vw,104px);left:6vw;top:auto;bottom:4vw}}
 .da-shape{position:relative;width:100%;max-width:392px;aspect-ratio:392/486;
   border-radius:62% 38% 44% 56%/42% 56% 44% 58%;
   background:linear-gradient(152deg,#FBEEE4 0%,#F3CDB4 40%,#E7B7B7 74%,#F2DFAF 100%);
