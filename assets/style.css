@@ -694,7 +694,7 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
 /* r3c: tamanho de volta a 100% (era o certo); para descer a arte usa-se um
    offset em px em vez de escala -- a faixa que abre no topo e areia lisa, igual
    a cor de fundo, por isso a emenda nao se ve. */
-.sec-duv{background:url("art-duvidas.webp") 0% 74px/auto 100% no-repeat,var(--areia)}
+.sec-duv{background:url("art-duvidas.webp") 0% 46px/auto 100% no-repeat,var(--areia)}
 /* NOTA: nao repor `min-height` no .duv-art aqui — a regra original ja o faz e
    o reset de <=960px (min-height:0) tem de continuar a ganhar, senao ficam
    520px de vazio no topo da seccao em telemovel. */
