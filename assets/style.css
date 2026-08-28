@@ -216,7 +216,7 @@ section{position:relative}
    mais estreita a viewport, mais o selo anda para a direita, acompanhando a arte
    que encolhe. Travado por clamp para nao fugir nos extremos. */
 .sobre-seal.na-duv{position:absolute;bottom:-7%;right:auto;top:auto;z-index:4;
-  left:clamp(-5%,calc(-5% + (1440px - 100vw) * 0.115),20%);
+  left:clamp(-30px,calc(-30px + (1440px - 100vw) * 0.30),150px);
   width:clamp(84px,9.2vw,132px);height:clamp(84px,9.2vw,132px)}
 @media(max-width:960px){.sobre-seal.na-duv{width:clamp(72px,16vw,104px);height:clamp(72px,16vw,104px);left:-3%;bottom:-4%}}
 .da-shape{position:relative;width:100%;max-width:392px;aspect-ratio:392/486;
