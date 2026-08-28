@@ -681,7 +681,12 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
    ========================================================================= */
 
 /* --- 1. HERO — Prancheta 1 (Ana a esquerda, colagem a direita) --- */
-.hero{background:url("art-hero.webp") center top/cover no-repeat,#F5EDEA}
+/* r3c: a arte do hero e 2800x1510 (1,85:1). O hero era mais baixo do que isso,
+   entao o `cover` cortava a base -- a Ana ficava serrada a meio do braco. Dar a
+   seccao a altura da propria proporcao da arte faz a imagem caber inteira, sem
+   `contain` e sem faixa vazia. */
+.hero{background:url("art-hero.webp") center top/cover no-repeat,#F5EDEA;
+  min-height:min(calc(100vw / 1.85),900px)}
 
 /* --- 2. DORES — Prancheta 1-1 (Ana ao centro-esquerda, sobre areia).
    A coluna esquerda esvazia-se (saiu o `.da-shape` reservado na r2) e passa a
