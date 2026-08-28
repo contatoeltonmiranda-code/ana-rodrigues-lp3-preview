@@ -179,9 +179,12 @@ section{position:relative}
     calc(100% - 0.9759 * var(--aba-h)) calc(100% - 0.0029 * var(--aba-h)),
     calc(100% - 1.0139 * var(--aba-h)) 100%, 0 100%)}
 /* cor = a da seccao DE CIMA. `from-hero` copia a aresta inferior REAL do hero,
-   amostrada no browser (1440px): x=0 -> #F9F5F1, x=55% -> #F6F0EA. Sem isto
-   fica uma emenda visivel na linha de encosto, porque o hero e gradiente. */
-.aba.from-hero::before{background:linear-gradient(90deg,#F9F5F1 0%,#F6F0EA 100%)}
+   amostrada no browser. RONDA 3: o hero deixou de ser um gradiente 120deg e
+   passou a ter a arte do cliente (art-hero.webp); a aresta inferior real e
+   agora UNIFORME #F7EFEB nos 3 viewports medidos (1440/1024/390), por isso o
+   gradiente 90deg antigo (#F9F5F1 -> #F6F0EA) deixou de bater e virou solido.
+   Reamostrar com _scratch/hero_edge.py sempre que o fundo do hero mudar. */
+.aba.from-hero::before{background:#F7EFEB}
 .aba.from-areia{--aba-cor:var(--areia)}
 .aba.from-paper{--aba-cor:var(--paper)}
 /* escala por viewport: 82px de degrau a 390px come a seccao toda.
@@ -658,3 +661,39 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
 @media(max-width:1024px){.sec-duv,.sec-imag,.sec-bonus,.sec-sobre{padding-top:124px}}
 @media(max-width:768px){.sec-duv,.sec-imag,.sec-bonus,.sec-sobre{padding-top:106px}}
 @media(max-width:600px){.sec-duv,.sec-imag,.sec-bonus,.sec-sobre{padding-top:88px}}
+
+/* ═══════════════════ RONDA 3 — ARTES DE FUNDO DO CLIENTE ═══════════════════
+   REGRA DE OURO (permanente neste projeto — nao alterar sem ordem do Elton):
+     - background-size: COVER. Nunca `contain`, nunca `fit`, nunca faixa vazia.
+     - background-position: center como ponto de partida. So se desloca para
+       salvar o motivo do corte lateral em ecras estreitos.
+     - ZERO opacity, ZERO filter, ZERO mix-blend-mode, ZERO overlay de cor e
+       ZERO gradiente POR CIMA. As pranchetas ja trazem o esbatimento embutido.
+     - O token de cor fica DEBAIXO da imagem, so como fallback se ela falhar.
+   Ficheiros: preview/assets/art-*.webp (2400px, q86).
+   Originais PNG intactos em assets-drive/pranchetas/.
+   ========================================================================= */
+
+/* --- 1. HERO — Prancheta 1 (Ana a esquerda, colagem a direita) --- */
+.hero{background:url("art-hero.webp") center/cover no-repeat,#F5EDEA}
+
+/* --- 2. DORES — Prancheta 1-1 (Ana ao centro-esquerda, sobre areia).
+   A coluna esquerda esvazia-se (saiu o `.da-shape` reservado na r2) e passa a
+   ser a janela por onde se ve a arte; as 2 colunas mantem-se. --- */
+.sec-duv{background:url("art-duvidas.webp") 80% center/cover no-repeat,var(--areia)}
+/* NOTA: nao repor `min-height` no .duv-art aqui — a regra original ja o faz e
+   o reset de <=960px (min-height:0) tem de continuar a ganhar, senao ficam
+   520px de vazio no topo da seccao em telemovel. */
+/* o orbe coral era um blob de cor por cima do fundo — sai nas seccoes com arte */
+.sec-duv>.orb{display:none}
+/* A arte tem o motivo a 25-52% da largura. Como a seccao e mais alta do que a
+   arte, o `cover` corta pelos lados e a janela visivel estreita a medida que o
+   ecra encolhe. Estas posicoes poem o motivo dentro da COLUNA ESQUERDA vazia,
+   em vez de o deixar por baixo do texto da coluna direita. */
+@media(max-width:1280px){.sec-duv{background-position:72% center}}
+@media(max-width:1080px){.sec-duv{background-position:62% center}}
+/* <=960px o layout empilha numa coluna so e o texto passa a ocupar toda a
+   largura: qualquer posicao que mostre a Ana poe-na POR BAIXO do texto (cabelo
+   escuro sob texto escuro). Aqui a legibilidade ganha e a janela vai para a
+   zona lisa de areia da propria arte. Ver RESUMO/DECISOES da ronda 3. */
+@media(max-width:960px){.sec-duv{background-position:100% center}}
