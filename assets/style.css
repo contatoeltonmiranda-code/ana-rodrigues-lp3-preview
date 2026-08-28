@@ -694,7 +694,11 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
 /* r3c: tamanho de volta a 100% (era o certo); para descer a arte usa-se um
    offset em px em vez de escala -- a faixa que abre no topo e areia lisa, igual
    a cor de fundo, por isso a emenda nao se ve. */
-.sec-duv{background:url("art-duvidas.webp") 0% 46px/auto 100% no-repeat,var(--areia)}
+/* r3d: a escala era `auto 100%` -> dependia da ALTURA da seccao, que nao muda
+   quando a janela estreita; a arte ficava do mesmo tamanho e invadia o texto.
+   Passa a `109% auto`: escala pela LARGURA, logo encolhe com a janela. 109%
+   reproduz o tamanho aprovado a 1440. Vertical continua em px. */
+.sec-duv{background:url("art-duvidas.webp") 0% 46px/109% auto no-repeat,var(--areia)}
 /* NOTA: nao repor `min-height` no .duv-art aqui — a regra original ja o faz e
    o reset de <=960px (min-height:0) tem de continuar a ganhar, senao ficam
    520px de vazio no topo da seccao em telemovel. */
@@ -704,16 +708,16 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
    arte, o `cover` corta pelos lados e a janela visivel estreita a medida que o
    ecra encolhe. Estas posicoes poem o motivo dentro da COLUNA ESQUERDA vazia,
    em vez de o deixar por baixo do texto da coluna direita. */
-@media(max-width:1280px){.sec-duv{background-position:0% center}}
-@media(max-width:1080px){.sec-duv{background-position:0% center}}
+@media(max-width:1280px){.sec-duv{background-position:0% 40px}}
+@media(max-width:1080px){.sec-duv{background-position:0% 34px}}
 /* A `ao-vivo` tem menos conteudo nesta seccao (5 itens em vez de 6), por isso a
    seccao e mais BAIXA, o racio e maior e a fatia visivel da arte e mais larga.
    Com os valores da `index` a Ana bastava-se a passar por baixo do texto (o
    vermelho da blusa dava contraste 1,0 com o cinzento da lista). Dai a classe
    `.pg-live` no <body> da ao-vivo e estes valores proprios. */
-.pg-live .sec-duv{background-position:0% center}
-@media(max-width:1280px){.pg-live .sec-duv{background-position:0% center}}
-@media(max-width:1080px){.pg-live .sec-duv{background-position:0% center}}
+.pg-live .sec-duv{background-position:0% 46px}
+@media(max-width:1280px){.pg-live .sec-duv{background-position:0% 40px}}
+@media(max-width:1080px){.pg-live .sec-duv{background-position:0% 34px}}
 /* <=960px o layout empilha numa coluna so e o texto passa a ocupar toda a
    largura: qualquer posicao que mostre a Ana poe-na POR BAIXO do texto (cabelo
    escuro sob texto escuro). Aqui a legibilidade ganha e a janela vai para a
