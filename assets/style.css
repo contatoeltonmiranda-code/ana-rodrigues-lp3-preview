@@ -184,7 +184,9 @@ section{position:relative}
    agora UNIFORME #F7EFEB nos 3 viewports medidos (1440/1024/390), por isso o
    gradiente 90deg antigo (#F9F5F1 -> #F6F0EA) deixou de bater e virou solido.
    Reamostrar com _scratch/hero_edge.py sempre que o fundo do hero mudar. */
-.aba.from-hero::before{background:#F7EFEB}
+/* r3b: com arte no hero, a cor chapada tapava a imagem. Passa a pintar-se com a
+   PROPRIA arte do hero ancorada em baixo, continuando-a em vez de a cortar. */
+.aba.from-hero::before{background:url("art-hero.webp") center bottom/cover no-repeat,#F7EFEB}
 .aba.from-areia{--aba-cor:var(--areia)}
 .aba.from-paper{--aba-cor:var(--paper)}
 /* escala por viewport: 82px de degrau a 390px come a seccao toda.
@@ -684,7 +686,7 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
 /* --- 2. DORES — Prancheta 1-1 (Ana ao centro-esquerda, sobre areia).
    A coluna esquerda esvazia-se (saiu o `.da-shape` reservado na r2) e passa a
    ser a janela por onde se ve a arte; as 2 colunas mantem-se. --- */
-.sec-duv{background:url("art-duvidas.webp") 0% center/auto 100% no-repeat,var(--areia)}
+.sec-duv{background:url("art-duvidas.webp") 0% top/auto 114% no-repeat,var(--areia)}
 /* NOTA: nao repor `min-height` no .duv-art aqui — a regra original ja o faz e
    o reset de <=960px (min-height:0) tem de continuar a ganhar, senao ficam
    520px de vazio no topo da seccao em telemovel. */
