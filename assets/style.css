@@ -807,3 +807,51 @@ footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;b
    lead caia mesmo por cima do abacate (contraste medido 1,0). Nesse intervalo
    o cartao volta ao fundo liso aprovado; a arte regressa a partir de 961px. */
 @media(max-width:960px){.final-inner{background:linear-gradient(150deg,#FFFFFF 0%,#FDF6F2 100%)}}
+
+/* =====================================================================
+   r4 — SEC 2 "PARA TI SE": lista em 2 colunas  ->  6 CARTOES EM GRELHA 3x2
+   Pedido da cliente: mesma linguagem da seccao "Imagina" da LP 2 do combo
+   (cartao branco, cantos arredondados, sombra leve, quadradinho de icone no
+   topo-esquerdo, texto curto por baixo) e FIM do "?" repetido em todos os
+   itens — era exactamente disso que ela se queixava. Cada cartao leva agora
+   um SVG proprio, escolhido pelo sentido do texto.
+
+   NADA foi apagado: a `ao-vivo.html` continua a usar `.duv-split`/`.duv-art`/
+   `.duv-list` com os mesmos 5 itens. Tudo o que e novo vive sob a classe
+   `.sec-duv-cards`, que so a `index.html` tem. O bloco fica no FIM do ficheiro
+   de proposito: a regra da arte (`.sec-duv{background:url(art-duvidas.webp)}`)
+   esta na zona das artes, mais abaixo do que a SEC 2, e so um seletor de 2
+   classes colocado depois a vence sem !important.
+   ===================================================================== */
+/* A arte de fundo (a Ana + selo) SAI desta seccao: com o conteudo centrado a
+   ocupar a largura toda, nao existe coluna vazia onde a figura possa viver e
+   qualquer posicao a poria por baixo dos cartoes. Volta-se ao degrade
+   areia-fim -> areia, que e o mesmo fundo que a seccao ja usa abaixo de 960px
+   e o que da a aba `from-hero` o contraste de que precisa no topo.
+   Regra de ouro do projecto respeitada: zero overlay, zero opacidade. */
+.sec-duv.sec-duv-cards{background:linear-gradient(180deg,var(--areia-fim) 0,var(--areia) 190px)}
+/* sem arte, o orbe coral volta a fazer sentido como profundidade do fundo */
+.sec-duv.sec-duv-cards>.orb{display:block}
+.sec-duv-cards h2{font-size:clamp(27px,3.4vw,42px);margin-bottom:14px}
+.sec-duv-cards .duv-intro{margin:24px 0 0}
+/* 3 colunas / 2 / 1. `max-width` + margens auto centram a grelha no wrap. */
+.duv-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1000px;margin:36px auto 0}
+.duv-card{position:relative;display:flex;flex-direction:column;align-items:flex-start;text-align:left;background:var(--grad-card);border:1px solid var(--linha);border-radius:18px;padding:26px 24px 24px;box-shadow:var(--sh-soft);transition:transform .3s ease,box-shadow .3s ease,border-color .3s ease}
+.duv-card p{font-size:14.8px;color:var(--texto);line-height:1.58}
+/* quadradinho do icone: 46px, cantos 14px, gradiente da paleta da LP 3.
+   Alterna sage/coral por `nth-child(2n)` — em grelha de 3 isso da tabuleiro de
+   xadrez, o mesmo truque que a `.rl-n` ja usa na roda desta pagina. */
+.dc-ico{display:flex;align-items:center;justify-content:center;flex:0 0 auto;width:46px;height:46px;margin-bottom:16px;border-radius:14px;background:var(--grad-sage);box-shadow:0 6px 16px rgba(169,94,61,.30),inset 0 0 0 1.5px rgba(255,255,255,.35)}
+.duv-card:nth-child(2n) .dc-ico{background:var(--grad-coral);box-shadow:0 6px 16px rgba(150,77,89,.30),inset 0 0 0 1.5px rgba(255,255,255,.35)}
+.dc-ico svg{width:23px;height:23px;fill:none;stroke:#fff;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media(hover:hover){.duv-card:hover{transform:translateY(-5px);border-color:rgba(185,106,117,.55);box-shadow:var(--sh-mid)}}
+@media(max-width:960px){
+  .duv-cards{grid-template-columns:repeat(2,1fr);max-width:720px;gap:18px}
+}
+@media(max-width:600px){
+  .duv-cards{grid-template-columns:1fr;max-width:430px;gap:15px;margin-top:28px}
+  .duv-card{padding:22px 20px 20px}
+  .duv-card p{font-size:14.4px}
+  .dc-ico{width:42px;height:42px;border-radius:13px;margin-bottom:14px}
+  .dc-ico svg{width:21px;height:21px}
+}
