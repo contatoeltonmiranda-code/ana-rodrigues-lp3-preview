@@ -536,13 +536,15 @@ section{position:relative}
 }
 @media(max-width:560px){.final-inner{padding:40px 24px;border-radius:20px}.fa-shape{max-width:300px}.fa-shape::after{inset:-16px;border-radius:30px}}
 /* FOOTER */
-/* r4b: saiu a <p class="foot-brand"> do HTML das duas paginas (pedido da
-   cliente). O filete do topo (footer::before) FICA -- so o nome saiu.
-   Topo de 50px -> 34px: sem a linha de 19px o rodape abria um buraco por
-   cima da .foot-sub, que e texto pequeno. A regra .foot-brand fica abaixo,
-   sem uso, para repor o nome bastar uma linha de HTML. */
-footer{position:relative;background:#F2E7E0;color:var(--texto);padding:34px 0 34px;text-align:center;font-size:13px}
-footer::before{content:'';position:absolute;top:0;left:0;width:100%;height:2px;background:linear-gradient(90deg,transparent,var(--sage),transparent);pointer-events:none}
+/* r5: saiu a <p class="foot-sub"> (Nutricionista / C.P.) do HTML das duas
+   paginas (pedido da cliente) -- ela quer o rodape a comecar so na linha de
+   Politica de Privacidade. O footer::before (filete laranja do topo) foi
+   removido junto, ja que marcava o inicio do bloco que saiu. Topo de 34px ->
+   16px: sem foot-brand nem foot-sub o unico divisor visual passa a ser o
+   border-top de .foot-links. As regras .foot-brand e .foot-sub ficam abaixo,
+   sem uso, para repor qualquer uma bastar uma linha de HTML (mesmo padrao
+   da r4b). */
+footer{position:relative;background:#F2E7E0;color:var(--texto);padding:16px 0 34px;text-align:center;font-size:13px}
 .foot-brand{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:19px;color:var(--sage-esc);letter-spacing:-.2px;margin-bottom:6px}
 .foot-sub{font-size:12.5px;color:var(--texto2);margin-bottom:10px}
 .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-bottom:18px;padding-top:22px;border-top:1px solid rgba(229,137,96,.3)}
