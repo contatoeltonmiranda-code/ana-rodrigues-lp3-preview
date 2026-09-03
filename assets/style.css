@@ -904,6 +904,6 @@ footer{position:relative;background:#F2E7E0;color:var(--texto);padding:16px 0 34
   .hero{padding-bottom:250px;background:url("art-m-hero.jpg") bottom center/cover no-repeat,#F7EFEB}
   .sec-bonus{padding-top:200px;background:url("art-m-bonus.jpg") top center/cover no-repeat,var(--areia)}
   .sec-oferta{padding-top:150px;background:url("art-m-oferta.jpg") top center/cover no-repeat,var(--paper)}
-  .sec-sobre{padding-top:250px;background:url("art-m-sobre.jpg") top center/cover no-repeat,#EFEBEF}
+  .sec-sobre{padding-top:300px;background:url("art-m-sobre.jpg") top center/cover no-repeat,#EFEBEF}
   .sec-final{padding-top:200px;background:url("art-m-final.jpg") top center/cover no-repeat,var(--cream)}
 }
