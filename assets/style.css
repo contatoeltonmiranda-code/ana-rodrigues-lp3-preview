@@ -882,3 +882,20 @@ footer{position:relative;background:#F2E7E0;color:var(--texto);padding:16px 0 34
   .dc-ico{width:42px;height:42px;border-radius:13px;margin-bottom:14px}
   .dc-ico svg{width:21px;height:21px}
 }
+
+/* =====================================================================
+   r5 — ESPACO PARA ARTES MOBILE (insercao pendente)
+   O Elton vai inserir artes mobile nas seccoes; as margens abrem o
+   espaco ANTES disso. Mobile so (600px, padrao do projecto), margin
+   e nao padding. O CSS e partilhado: `.sec-sobre` e `.sec-final`
+   cobrem as duas paginas; `.sec-bonus` e `.sec-oferta` so existem
+   na `index.html` (a `ao-vivo` nao as tem, logo a regra nao la aplica).
+   ===================================================================== */
+/* espaco para artes mobile (insercao pendente) */
+@media(max-width:600px){
+  .hero{margin-bottom:250px}
+  .sec-bonus{margin-top:200px}
+  .sec-oferta{margin-top:150px}
+  .sec-sobre{margin-top:250px}
+  .sec-final{margin-top:200px}
+}
