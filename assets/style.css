@@ -893,9 +893,9 @@ footer{position:relative;background:#F2E7E0;color:var(--texto);padding:16px 0 34
    ===================================================================== */
 /* espaco para artes mobile (insercao pendente) */
 @media(max-width:600px){
-  .hero{margin-bottom:250px}
-  .sec-bonus{margin-top:200px}
-  .sec-oferta{margin-top:150px}
-  .sec-sobre{margin-top:250px}
-  .sec-final{margin-top:200px}
+  .hero{padding-bottom:250px}
+  .sec-bonus{padding-top:200px}
+  .sec-oferta{padding-top:150px}
+  .sec-sobre{padding-top:250px}
+  .sec-final{padding-top:200px}
 }
