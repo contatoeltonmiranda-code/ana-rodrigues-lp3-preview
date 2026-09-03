@@ -884,18 +884,26 @@ footer{position:relative;background:#F2E7E0;color:var(--texto);padding:16px 0 34
 }
 
 /* =====================================================================
-   r5 — ESPACO PARA ARTES MOBILE (insercao pendente)
-   O Elton vai inserir artes mobile nas seccoes; as margens abrem o
-   espaco ANTES disso. Mobile so (600px, padrao do projecto), margin
-   e nao padding. O CSS e partilhado: `.sec-sobre` e `.sec-final`
-   cobrem as duas paginas; `.sec-bonus` e `.sec-oferta` so existem
-   na `index.html` (a `ao-vivo` nao as tem, logo a regra nao la aplica).
+   r5 — ARTES MOBILE como background das seccoes (Pranchetas 1 a 1-4)
+   Mapeamento confirmado pelo Elton (2026-09-03): .hero=Prancheta 1,
+   .sec-bonus=1-1, .sec-oferta=1-2, .sec-sobre=1-3, .sec-final=1-4.
+   Artes em 1080x2800 (vertical), convertidas para JPG q82 (50-90 KB).
+   Ancoragem `top center` (pedido do Elton: centralizada no sentido
+   superior), `cover`, sem repeticao e SEM overlay/opacidade — a arte
+   entra cheia (regra de ouro do projecto). Os paddings abaixo abrem
+   o espaco onde a arte respira antes do conteudo.
+   O CSS e partilhado: `.hero`, `.sec-sobre` e `.sec-final` cobrem as
+   duas paginas (index e ao-vivo); `.sec-bonus` e `.sec-oferta` so
+   existem na `index.html` (a `ao-vivo` nao as tem, logo a regra nao
+   la aplica). Fica no FIM do ficheiro a proposito: sobrescreve, sem
+   !important, as regras de arte desktop (hero 240% a <=960px, bonus/
+   oferta/sobre e as suas posicoes por breakpoint).
    ===================================================================== */
-/* espaco para artes mobile (insercao pendente) */
+/* artes mobile — hero: sobrescreve a arte desktop (art-hero.webp 240%) */
 @media(max-width:600px){
-  .hero{padding-bottom:250px}
-  .sec-bonus{padding-top:200px}
-  .sec-oferta{padding-top:150px}
-  .sec-sobre{padding-top:250px}
-  .sec-final{padding-top:200px}
+  .hero{padding-bottom:250px;background:url("art-m-hero.jpg") top center/cover no-repeat,#F7EFEB}
+  .sec-bonus{padding-top:200px;background:url("art-m-bonus.jpg") top center/cover no-repeat,var(--areia)}
+  .sec-oferta{padding-top:150px;background:url("art-m-oferta.jpg") top center/cover no-repeat,var(--paper)}
+  .sec-sobre{padding-top:250px;background:url("art-m-sobre.jpg") top center/cover no-repeat,#EFEBEF}
+  .sec-final{padding-top:200px;background:url("art-m-final.jpg") top center/cover no-repeat,var(--cream)}
 }
