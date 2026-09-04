@@ -377,6 +377,12 @@
 </footer>
 
 <script>
+/* ===== r8: iPhone abre a pagina ja scrollada — o iOS restauro a posicao
+   anterior ao recarregar. scrollRestoration manual + scrollTo(0,0) no load. ===== */
+if('scrollRestoration' in history){history.scrollRestoration='manual';}
+window.addEventListener('load',function(){
+  try{window.scrollTo({top:0,left:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}
+});
 /* ===== Scroll reveal (stagger por irmao) ===== */
 (function(){
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;

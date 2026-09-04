@@ -297,6 +297,7 @@
       <input type="text" id="popNome" name="first_name" autocomplete="given-name" required>
       <label for="popEmail">O teu email</label>
       <input type="email" id="popEmail" name="email" autocomplete="email" required>
+      <label class="pop-consent"><input type="checkbox" name="consentimento" value="1"> Quero continuar a receber conteúdos práticos sobre introdução alimentar e alimentação infantil, novidades e informações sobre cursos e serviços. Posso cancelar a subscrição a qualquer momento.</label>
       <button type="submit" class="btn lg full">Garantir o meu lugar</button>
     </form>
     <p class="pop-nota">Lugares limitados. Não enviamos spam &mdash; podes cancelar a subscrição quando quiseres.</p>
@@ -304,6 +305,12 @@
 </div>
 
 <script>
+/* ===== r8: iPhone abre a pagina ja scrollada — o iOS restauro a posicao
+   anterior ao recarregar. scrollRestoration manual + scrollTo(0,0) no load. ===== */
+if('scrollRestoration' in history){history.scrollRestoration='manual';}
+window.addEventListener('load',function(){
+  try{window.scrollTo({top:0,left:0,behavior:'instant'});}catch(e){window.scrollTo(0,0);}
+});
 /* ===== Scroll reveal (stagger por irmao) ===== */
 (function(){
   var reduce=window.matchMedia&&window.matchMedia('(prefers-reduced-motion:reduce)').matches;

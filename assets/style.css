@@ -23,7 +23,11 @@
 *{margin:0;padding:0;box-sizing:border-box}
 @property --angle{syntax:'<angle>';initial-value:0deg;inherits:false}
 @keyframes angleSpin{to{--angle:360deg}}
-html{scroll-behavior:smooth}
+/* r8: fundo no <html> = cor do rodape. Sem ele, o overscroll do iOS pinta
+   a zona alem do documento com o fundo do body (cream #FAFAF8) — era o
+   "espaco em branco" que aparecia no iPhone a rodear o rodape (#F2E7E0).
+   Com o fundo no html a tela de borracha acompanha a cor do bloco final. */
+html{scroll-behavior:smooth;background:#F2E7E0}
 body{font-family:'Inter',sans-serif;color:var(--ink);background:var(--cream);line-height:1.62;overflow-x:hidden;-webkit-font-smoothing:antialiased}
 h1,h2,h3,.display{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;line-height:1.12;letter-spacing:-.4px;color:var(--ink)}
 img{max-width:100%;display:block}
@@ -543,8 +547,10 @@ section{position:relative}
    16px: sem foot-brand nem foot-sub o unico divisor visual passa a ser o
    border-top de .foot-links. As regras .foot-brand e .foot-sub ficam abaixo,
    sem uso, para repor qualquer uma bastar uma linha de HTML (mesmo padrao
-   da r4b). */
-footer{position:relative;background:#F2E7E0;color:var(--texto);padding:16px 0 34px;text-align:center;font-size:13px}
+   da r4b).
+   r8: pedido do Elton — a margem SUPERIOR (16px) estava mais fechada que a
+   inferior (34px); igualada: 34px dos dois lados. */
+footer{position:relative;background:#F2E7E0;color:var(--texto);padding:34px 0;text-align:center;font-size:13px}
 .foot-brand{font-family:'Plus Jakarta Sans',sans-serif;font-weight:800;font-size:19px;color:var(--sage-esc);letter-spacing:-.2px;margin-bottom:6px}
 .foot-sub{font-size:12.5px;color:var(--texto2);margin-bottom:10px}
 .foot-links{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 22px;margin-bottom:18px}
@@ -656,6 +662,17 @@ footer{position:relative;background:#F2E7E0;color:var(--texto);padding:16px 0 34
   .escada{--esc-ds:.8}
   .esc-item{gap:13px}
   .esc-txt{font-size:14.2px}
+  /* r8 (Elton): no telemovel a escada vira CHECKLIST — saem os numeros .esc-no,
+     entra o check padrao da paleta (disco grad sage + polyline branco, o mesmo
+     estilo de check do site: .pb-inc li .ck / ponte do icon-list). O disco e
+     ::before do proprio item: alinhado a esquerda, igual em todos os itens.
+     Desktop (e a faixa 601-960, escada empilhada) mantem a escada com numeros. */
+  .esc-no{display:none}
+  .esc-item{gap:12px;margin-left:0}
+  .esc-item::before{content:"";flex:0 0 auto;width:26px;height:26px;margin-top:1px;border-radius:50%;
+    background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23fff' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M5 12l5 5L20 7'/%3E%3C/svg%3E"),var(--grad-sage);
+    background-position:center,0 0;background-size:13px 13px,auto;background-repeat:no-repeat,no-repeat;
+    box-shadow:0 6px 16px rgba(169,94,61,.30),inset 0 0 0 2px rgba(255,255,255,.5)}
 }
 
 /* =====================================================================
@@ -676,6 +693,15 @@ footer{position:relative;background:#F2E7E0;color:var(--texto);padding:16px 0 34
 .pop-card label{display:block;font-size:12px;font-weight:700;letter-spacing:.8px;text-transform:uppercase;color:var(--texto);margin:0 0 7px}
 .pop-card input{width:100%;font-family:'Inter',sans-serif;font-size:15px;color:var(--ink);background:#fff;border:1.5px solid var(--linha);border-radius:12px;padding:14px 16px;margin-bottom:18px;transition:border-color .2s,box-shadow .2s}
 .pop-card input:focus{outline:none;border-color:var(--sage);box-shadow:0 0 0 3px rgba(229,137,96,.18)}
+/* r8: consentimento RGPD do popup (nao vai no POST do systeme.io — visual).
+   Tem de vencer .pop-card label (uppercase/negrito) e .pop-card input
+   (width:100% + padding que deformaria a checkbox). */
+.pop-card .pop-consent{display:flex;align-items:flex-start;gap:10px;margin:0 0 16px;padding:0;
+  font-family:'Inter',sans-serif;font-size:12px;font-weight:400;letter-spacing:0;text-transform:none;
+  color:var(--texto2);line-height:1.5;cursor:pointer;text-align:left}
+.pop-card .pop-consent input{width:16px;height:16px;flex:0 0 auto;margin:2px 0 0;padding:0;
+  border-radius:4px;border:1.5px solid var(--linha);background:#fff;accent-color:var(--sage-esc);
+  cursor:pointer;transition:none;appearance:auto;-webkit-appearance:checkbox}
 .pop-card .btn{margin-top:4px}
 .pop-card .pop-nota{margin-top:16px;font-size:12px;color:var(--texto2);line-height:1.55;text-align:center}
 .pop-close{position:absolute;top:14px;right:14px;width:38px;height:38px;border:none;border-radius:50%;background:rgba(229,137,96,.12);cursor:pointer;display:grid;place-items:center;transition:background .2s}
