@@ -901,7 +901,7 @@ footer{position:relative;background:#F2E7E0;color:var(--texto);padding:16px 0 34
    ===================================================================== */
 /* artes mobile — hero: sobrescreve a arte desktop (art-hero.webp 240%) */
 @media(max-width:600px){
-  .sec-duv .aba.from-hero{display:none}
+  .sec-duv .aba.from-hero{background:url("art-m-hero.jpg") bottom center/cover no-repeat}
   .hero{padding-bottom:400px;background:url("art-m-hero.jpg") bottom center/cover no-repeat,#F7EFEB}
   .sec-bonus{padding-top:200px;background:url("art-m-bonus.jpg") top center/cover no-repeat,var(--areia)}
   .sec-oferta{padding-top:150px;background:url("art-m-oferta.jpg") top center/cover no-repeat,var(--paper)}
