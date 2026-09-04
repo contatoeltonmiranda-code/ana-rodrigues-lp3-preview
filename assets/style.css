@@ -92,14 +92,14 @@ section{position:relative}
 .hero .sub strong{color:var(--ink);font-weight:600}
 .hero .date-badge{margin-bottom:26px}
 .hero-meta{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px 14px;margin-top:20px;font-size:13.5px;color:var(--texto)}
-.hero-meta .hm{display:inline-flex;align-items:center;gap:7px}
-.hero-meta .hm svg{width:15px;height:15px;stroke:var(--sage-esc);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.hero-meta .hmi{display:inline-flex;align-items:center;gap:7px}
+.hero-meta .hmi svg{width:15px;height:15px;stroke:var(--sage-esc);stroke-width:2.2;fill:none;stroke-linecap:round;stroke-linejoin:round}
 .hero-meta .hm-sep{color:var(--linha)}
 /* meta tambem acima da promessa, no registo discreto da referencia */
 .hero-meta.topo{margin-top:28px;gap:10px 40px;font-size:11px;font-weight:600;letter-spacing:1.5px;
   text-transform:uppercase;color:var(--texto2)}
-.hero-meta.topo .hm{gap:9px}
-.hero-meta.topo .hm svg{width:13px;height:13px;opacity:.85}
+.hero-meta.topo .hmi{gap:9px}
+.hero-meta.topo .hmi svg{width:13px;height:13px;opacity:.85}
 /* ===== ABA / DEGRAU DE SECCAO (r2e — perfil corrigido: CHANFRO, nao onda) ===
    MEDIDO na ref `_ajustes/rodada-2/refs/5.png` (1430x435; area util do site
    x=17..1416 -> largura de conteudo = 1400px). Perfil extraido COLUNA A COLUNA
