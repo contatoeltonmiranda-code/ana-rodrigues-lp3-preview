@@ -694,6 +694,8 @@ footer{position:relative;background:#F2E7E0;color:var(--texto);padding:34px 0;te
 .pop-card input{width:100%;font-family:'Inter',sans-serif;font-size:15px;color:var(--ink);background:#fff;border:1.5px solid var(--linha);border-radius:12px;padding:14px 16px;margin-bottom:18px;transition:border-color .2s,box-shadow .2s}
 .pop-card input:focus{outline:none;border-color:var(--sage);box-shadow:0 0 0 3px rgba(229,137,96,.18)}
 /* r8: consentimento RGPD do popup (nao vai no POST do systeme.io — visual).
+   r9: obrigatorio (required no input) — bloqueia o submit desmarcado; validacao
+   client-side, o campo nao existe no form systeme.io.
    Tem de vencer .pop-card label (uppercase/negrito) e .pop-card input
    (width:100% + padding que deformaria a checkbox). */
 .pop-card .pop-consent{display:flex;align-items:flex-start;gap:10px;margin:0 0 16px;padding:0;
