@@ -637,6 +637,7 @@ footer{position:relative;background:#F2E7E0;color:var(--texto);padding:34px 0;te
   .serp-txt{font-size:14.4px}
   .pilares{grid-template-columns:1fr;grid-template-areas:"core" "t1" "t2" "t3" "t4";gap:26px;max-width:420px}
   .pil-core{grid-template-columns:repeat(2,132px);grid-template-rows:repeat(2,132px);gap:13px}
+  .pil-core{display:none!important}
   .pil-tile .pt-mk{font-size:42px}
   .pil-tile .pt-mk.est svg{width:42px;height:42px}
   .pil-tile .pt-ico{width:42px;height:42px}
